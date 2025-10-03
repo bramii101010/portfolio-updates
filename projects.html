@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects - Amy Bray</title>
+    <meta
+      name="description"
+      content="Explore Amy Bray's HR technology projects including AI automation, data integration, and workflow optimization solutions."
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      /* Projects-specific styles */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .project-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .project-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border-color: var(--accent-color);
+      }
+
+      .project-header {
+        padding: 2rem 2rem 1rem 2rem;
+        position: relative;
+      }
+
+      .project-status {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: var(--success-bg);
+        color: var(--success-color);
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .project-status.prototype {
+        background: var(--warning-bg);
+        color: var(--warning-color);
+      }
+
+      .project-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .project-card h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 0 0 0.5rem 0;
+      }
+
+      .project-tagline {
+        color: var(--text-secondary);
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+      }
+
+      .project-content {
+        padding: 0 2rem 1.5rem 2rem;
+      }
+
+      .tech-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .tech-tag {
+        background: var(--accent-color-alpha);
+        color: var(--accent-color);
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+
+      .project-features {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1.5rem 0;
+      }
+
+      .project-features li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+
+      .project-features li::before {
+        content: "✓";
+        color: var(--success-color);
+        font-weight: bold;
+        flex-shrink: 0;
+        margin-top: 0.125rem;
+      }
+
+      .project-actions {
+        padding: 1.5rem 2rem 2rem 2rem;
+        border-top: 1px solid var(--border-color);
+        display: flex;
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+        color: white;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px var(--accent-color-alpha);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+      }
+
+      .btn-secondary:hover {
+        background: var(--accent-color-alpha);
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+      }
+
+      .project-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin: 1.5rem 0;
+        padding: 1.5rem;
+        background: var(--bg-secondary);
+        border-radius: 12px;
+      }
+
+      .metric {
+        text-align: center;
+      }
+
+      .metric-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        display: block;
+      }
+
+      .metric-label {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 0.25rem;
+      }
+
+      .coming-soon {
+        opacity: 0.7;
+        position: relative;
+      }
+
+      .coming-soon::after {
+        content: "Coming Soon";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--accent-color);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.875rem;
+        z-index: 2;
+      }
+
+      .coming-soon::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 20px;
+        z-index: 1;
+      }
+
+      [data-theme="dark"] .coming-soon::before {
+        background: rgba(0, 0, 0, 0.6);
+      }
+
+      /* Filter buttons */
+      .project-filters {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .filter-btn {
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--border-color);
+        background: transparent;
+        color: var(--text-secondary);
+        border-radius: 20px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .filter-btn.active,
+      .filter-btn:hover {
+        background: var(--accent-color);
+        color: white;
+        border-color: var(--accent-color);
+      }
+
+      /* CSS Variables for theming */
+      :root {
+        --bg-primary: #fafbfc;
+        --bg-secondary: #f5f7fa;
+        --card-bg: rgba(255, 255, 255, 0.8);
+        --text-primary: #1a202c;
+        --text-secondary: #4a5568;
+        --border-color: rgba(226, 232, 240, 0.8);
+        --accent-color: #667eea;
+        --accent-secondary: #764ba2;
+        --accent-color-alpha: rgba(102, 126, 234, 0.15);
+        --success-bg: rgba(72, 187, 120, 0.1);
+        --success-color: #38a169;
+        --warning-bg: rgba(237, 137, 54, 0.1);
+        --warning-color: #d69e2e;
+      }
+
+      [data-theme="dark"] {
+        --bg-primary: #0f1419;
+        --bg-secondary: #1a202c;
+        --card-bg: rgba(45, 55, 72, 0.8);
+        --text-primary: #f7fafc;
+        --text-secondary: #a0aec0;
+        --border-color: rgba(74, 85, 104, 0.8);
+        --success-bg: rgba(72, 187, 120, 0.15);
+        --success-color: #68d391;
+        --warning-bg: rgba(237, 137, 54, 0.15);
+        --warning-color: #f6ad55;
+      }
+
+      /* Background system */
+      .bg-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        z-index: -3;
+      }
+
+      .accent-blob {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(60px);
+        opacity: 0.6;
+        z-index: -2;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .blob-1 {
+        width: 400px;
+        height: 400px;
+        background: linear-gradient(45deg, var(--accent-color), var(--accent-secondary));
+        top: -100px;
+        right: -100px;
+        animation-delay: 0s;
+      }
+
+      .blob-2 {
+        width: 300px;
+        height: 300px;
+        background: linear-gradient(-45deg, var(--accent-secondary), var(--accent-color));
+        bottom: -50px;
+        left: -50px;
+        animation-delay: 3s;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        33% { transform: translateY(-20px) rotate(5deg); }
+        66% { transform: translateY(10px) rotate(-3deg); }
+      }
+
+      /* Header styles */
+      .site-header {
+        position: sticky;
+        top: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border-color);
+        z-index: 100;
+        padding: 1rem 0;
+      }
+
+      [data-theme="dark"] .site-header {
+        background: rgba(15, 20, 25, 0.95);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .header-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .brand {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        text-decoration: none;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .nav-btn {
+        padding: 0.5rem 1rem;
+        color: var(--text-secondary);
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+      }
+
+      .nav-btn:hover, .nav-btn.active {
+        color: var(--text-primary);
+        background: var(--accent-color-alpha);
+      }
+
+      .theme-toggle {
+        background: none;
+        border: none;
+        font-size: 1.25rem;
+        padding: 0.5rem;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: background 0.2s ease;
+        margin-left: 0.5rem;
+      }
+
+      .theme-toggle:hover {
+        background: var(--accent-color-alpha);
+      }
+
+      /* Hero section */
+      .hero {
+        padding: 4rem 0 2rem 0;
+        text-align: center;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        background: var(--accent-color-alpha);
+        color: var(--accent-color);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        margin: 0 0 1rem 0;
+        line-height: 1.1;
+      }
+
+      .hero-subtitle {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+
+      .section {
+        padding: 2rem 0;
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .projects-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .project-card {
+          margin: 0 1rem;
+        }
+
+        .project-header, .project-content, .project-actions {
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+
+        .project-actions {
+          flex-direction: column;
+        }
+
+        .project-metrics {
+          grid-template-columns: 1fr;
+          gap: 0.5rem;
+        }
+
+        .nav-actions {
+          flex-wrap: wrap;
+          gap: 0.25rem;
+        }
+
+        .nav-btn {
+          padding: 0.375rem 0.75rem;
+          font-size: 0.875rem;
+        }
+
+        .hero h1 {
+          font-size: 2.25rem;
+        }
+
+        .hero-subtitle {
+          font-size: 1.125rem;
+        }
+
+        .container {
+          padding: 0 1rem;
+        }
+
+        .project-filters {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Professional background system -->
+    <div class="bg-canvas"></div>
+    <div class="accent-blob blob-1"></div>
+    <div class="accent-blob blob-2"></div>
+
+    <header class="site-header">
+      <div class="container">
+        <div class="header-content">
+          <a class="brand" href="index.html" aria-label="Amy Bray - Home">Amy Bray</a>
+          
+          <nav class="nav-actions">
+            <a class="nav-btn" href="index.html">Home</a>
+            <a class="nav-btn active" href="projects.html">Projects</a>
+            <a class="nav-btn" href="case-studies.html">Case Studies</a>
+            <a class="nav-btn" href="contact.html">Contact</a>
+            <button
+              id="theme-toggle"
+              class="theme-toggle"
+              aria-label="Toggle between light and dark themes"
+              title="Toggle theme"
+            >
+              🌙
+            </button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Page Header -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-badge">
+              <span class="badge-text">🚀 Innovation in Action</span>
+            </div>
+            <h1>Building the Future of HR Technology</h1>
+            <p class="hero-subtitle">
+              From AI-powered assistants to seamless data integrations, each project represents a step toward more efficient, human-centered workplace technology.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Project Filters -->
+      <section class="section">
+        <div class="container">
+          <div class="project-filters">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="ai">AI & Automation</button>
+            <button class="filter-btn" data-filter="integration">Data Integration</button>
+            <button class="filter-btn" data-filter="dashboard">Analytics</button>
+            <button class="filter-btn" data-filter="workflow">Workflow</button>
+          </div>
+
+          <!-- Projects Grid -->
+          <div class="projects-grid">
+            <!-- AccuAI Project -->
+            <article class="project-card" data-category="ai">
+              <div class="project-header">
+                <div class="project-status">Live</div>
+                <div class="project-icon">🤖</div>
+                <h3>AccuAI</h3>
+                <p class="project-tagline">AI-powered accuracy verification system that ensures data integrity across HRIS platforms</p>
+              </div>
+              
+              <div class="project-content">
+                <div class="tech-stack">
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">OpenAI API</span>
+                  <span class="tech-tag">PostgreSQL</span>
+                  <span class="tech-tag">FastAPI</span>
+                  <span class="tech-tag">React</span>
+                </div>
+                
+                <ul class="project-features">
+                  <li>Real-time data validation across multiple HRIS systems</li>
+                  <li>AI-powered anomaly detection and correction suggestions</li>
+                  <li>Automated reporting and compliance tracking</li>
+                  <li>Integration with major HR platforms (Workday, BambooHR, etc.)</li>
+                </ul>
+
+                <div class="project-metrics">
+                  <div class="metric">
+                    <span class="metric-value">99.7%</span>
+                    <span class="metric-label">Accuracy Rate</span>
+                  </div>
+                  <div class="metric">
+                    <span class="metric-value">85%</span>
+                    <span class="metric-label">Time Saved</span>
+                  </div>
+                  <div class="metric">
+                    <span class="metric-value">50+</span>
+                    <span class="metric-label">Companies</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="project-actions">
+                <a href="project-accuai.html" class="btn btn-primary">
+                  View Details
+                  <span>→</span>
+                </a>
+                <a href="contact.html" class="btn btn-secondary">
+                  Request Demo
+                  <span>↗</span>
+                </a>
+              </div>
+            </article>
+
+            <!-- AuniConnect Project -->
+            <article class="project-card" data-category="integration">
+              <div class="project-header">
+                <div class="project-status prototype">Beta</div>
+                <div class="project-icon">🔗</div>
+                <h3>AuniConnect</h3>
+                <p class="project-tagline">Seamless HRIS to ATS data integration platform that eliminates manual data entry</p>
+              </div>
+              
+              <div class="project-content">
+                <div class="tech-stack">
+                  <span class="tech-tag">Node.js</span>
+                  <span class="tech-tag">Express</span>
+                  <span class="tech-tag">MongoDB</span>
+                  <span class="tech-tag">REST APIs</span>
+                  <span class="tech-tag">Vue.js</span>
+                </div>
+                
+                <ul class="project-features">
+                  <li>Bi-directional sync between HRIS and ATS platforms</li>
+                  <li>Real-time candidate status updates</li>
+                  <li>Automated offer letter generation and tracking</li>
+                  <li>Custom field mapping and data transformation</li>
+                </ul>
+
+                <div class="project-metrics">
+                  <div class="metric">
+                    <span class="metric-value">40hrs</span>
+                    <span class="metric-label">Time Saved/Week</span>
+                  </div>
+                  <div class="metric">
+                    <span class="metric-value">95%</span>
+                    <span class="metric-label">Error Reduction</span>
+                  </div>
+                  <div class="metric">
+                    <span class="metric-value">15</span>
+                    <span class="metric-label">Beta Users</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="project-actions">
+                <a href="project-auniconnect.html" class="btn btn-primary">
+                  View Details
+                  <span>→</span>
+                </a>
+                <a href="contact.html" class="btn btn-secondary">
+                  Request Demo
+                  <span>↗</span>
+                </a>
+              </div>
+            </article>
+
+            <!-- VMSFlex Pay Project -->
+            <article class="project-card" data-category="workflow">
+              <div class="project-header">
+                <div class="project-status">Live</div>
+                <div class="project-icon">⏱️</div>
+                <h3>VMSFlex Pay</h3>
+                <p class="project-tagline">Smart payroll calculator with intelligent VMS format detection and location-based overtime rules</p>
+              </div>
+              
+              <div class="project-content">
+                <div class="tech-stack">
+                  <span class="tech-tag">HTML</span>
+                  <span class="tech-tag">CSS</span>
+                  <span class="tech-tag">JavaScript</span>
+                  <span class="tech-tag">No Dependencies</span>
+                </div>
+                
+                <ul class="project-features">
+                  <li>Intelligent CSV format detection across multiple VMS systems</li>
+                  <li>Location-based overtime calculation (Federal, CA, NY)</li>
+                  <li>Multi-file processing with automatic data merging</li>
+                  <li>Payroll-ready export with detailed breakdowns</li>
+                </ul>
+
+                <div class="project-metrics">
+                  <div class="metric">
+                    <span class="metric-value">95%</span>
+                    <span class="metric-label">Time Savings</span>
+                  </div>
+                  <div class="metric">
+                    <span class="metric-value">100%</span>
+                    <span class="metric-label">Error Reduction</span>
+                  </div>
+                  <div class="metric">
+                    <span class="metric-value">Multi</span>
+                    <span class="metric-label">VMS Support</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="project-actions">
+                <a href="project-vmsflex.html" class="btn btn-primary">
+                  View Details
+                  <span>→</span>
+                </a>
+                <a href="vmsflex-demo.html" target="_blank" class="btn btn-secondary">
+                  Try Demo
+                  <span>↗</span>
+                </a>
+              </div>
+            </article>
+
+            <!-- HR Analytics Dashboard -->
+            <article class="project-card coming-soon" data-category="dashboard">
+              <div class="project-header">
+                <div class="project-status prototype">Coming Soon</div>
+                <div class="project-icon">📊</div>
+                <h3>HR Analytics Dashboard</h3>
+                <p class="project-tagline">Comprehensive analytics platform for HR metrics, trends, and predictive insights</p>
+              </div>
+              
+              <div class="project-content">
+                <div class="tech-stack">
+                  <span class="tech-tag">D3.js</span>
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">Tableau</span>
+                  <span class="tech-tag">AWS</span>
+                </div>
+                
+                <ul class="project-features">
+                  <li>Real-time HR metrics visualization</li>
+                  <li>Predictive analytics for retention and hiring</li>
+                  <li>Custom dashboard creation tools</li>
+                  <li>Executive summary reports</li>
+                </ul>
+              </div>
+              
+              <div class="project-actions">
+                <a href="#" class="btn btn-primary">
+                  Coming Soon
+                </a>
+                <a href="contact.html" class="btn btn-secondary">
+                  Get Notified
+                </a>
+              </div>
+            </article>
+
+            <!-- Workflow Optimization Tool -->
+            <article class="project-card coming-soon" data-category="workflow">
+              <div class="project-header">
+                <div class="project-status prototype">Planning</div>
+                <div class="project-icon">⚡</div>
+                <h3>Workflow Optimizer</h3>
+                <p class="project-tagline">AI-driven workflow analysis and optimization for HR processes</p>
+              </div>
+              
+              <div class="project-content">
+                <div class="tech-stack">
+                  <span class="tech-tag">Machine Learning</span>
+                  <span class="tech-tag">Process Mining</span>
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">Docker</span>
+                </div>
+                
+                <ul class="project-features">
+                  <li>Automated workflow analysis and bottleneck detection</li>
+                  <li>AI-powered optimization recommendations</li>
+                  <li>Process automation suggestions</li>
+                  <li>ROI calculation and impact tracking</li>
+                </ul>
+              </div>
+              
+              <div class="project-actions">
+                <a href="#" class="btn btn-primary">
+                  In Development
+                </a>
+                <a href="contact.html" class="btn btn-secondary">
+                  Early Access
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // Theme toggle functionality
+      const themeToggle = document.getElementById('theme-toggle');
+      const html = document.documentElement;
+
+      // Check for saved theme preference or default to light mode
+      const currentTheme = localStorage.getItem('theme') || 'light';
+      html.setAttribute('data-theme', currentTheme);
+      themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+      themeToggle.addEventListener('click', () => {
+        const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+      });
+
+      // Project filtering
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const projectCards = document.querySelectorAll('.project-card');
+
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Update active filter button
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+
+          const filterValue = button.getAttribute('data-filter');
+          
+          // Filter project cards
+          projectCards.forEach(card => {
+            if (filterValue === 'all') {
+              card.style.display = 'block';
+            } else {
+              const categories = card.getAttribute('data-category');
+              if (categories && categories.includes(filterValue)) {
+                card.style.display = 'block';
+              } else {
+                card.style.display = 'none';
+              }
+            }
+          });
+        });
+      });
+
+      // Smooth scrolling for internal links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

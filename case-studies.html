@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case Studies - Amy Bray</title>
+    <meta
+      name="description"
+      content="Real-world case studies showing how Amy Bray's HR technology solutions have transformed businesses and saved thousands of hours."
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      /* Case studies specific styles */
+      .case-studies-grid {
+        display: grid;
+        gap: 3rem;
+        margin-top: 3rem;
+      }
+
+      .case-study-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      }
+
+      .case-study-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .case-header {
+        padding: 2rem 2rem 1rem 2rem;
+        background: linear-gradient(135deg, var(--accent-color-alpha) 0%, transparent 100%);
+      }
+
+      .case-company {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .company-logo {
+        width: 50px;
+        height: 50px;
+        background: var(--accent-color);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 1.25rem;
+      }
+
+      .company-info h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 0;
+      }
+
+      .company-details {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        margin: 0;
+      }
+
+      .case-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 1rem 0 0.5rem 0;
+        line-height: 1.3;
+      }
+
+      .case-summary {
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+      }
+
+      .case-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        padding: 2rem;
+        background: var(--bg-secondary);
+        margin: 0 2rem;
+        border-radius: 12px;
+      }
+
+      .metric {
+        text-align: center;
+      }
+
+      .metric-value {
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: var(--accent-color);
+        display: block;
+        margin-bottom: 0.25rem;
+      }
+
+      .metric-label {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+
+      .case-content {
+        padding: 2rem;
+      }
+
+      .challenge-solution {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .challenge, .solution {
+        padding: 1.5rem;
+        border-radius: 12px;
+      }
+
+      .challenge {
+        background: rgba(239, 68, 68, 0.1);
+        border-left: 4px solid #ef4444;
+      }
+
+      .solution {
+        background: rgba(34, 197, 94, 0.1);
+        border-left: 4px solid #22c55e;
+      }
+
+      .challenge h4, .solution h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0 0 0.75rem 0;
+        color: var(--text-primary);
+      }
+
+      .challenge p, .solution p {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+        margin: 0;
+      }
+
+      .implementation-timeline {
+        margin: 2rem 0;
+      }
+
+      .timeline {
+        position: relative;
+        padding-left: 2rem;
+      }
+
+      .timeline::before {
+        content: '';
+        position: absolute;
+        left: 0.75rem;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--border-color);
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 1.5rem;
+      }
+
+      .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -1.5rem;
+        top: 0.25rem;
+        width: 12px;
+        height: 12px;
+        background: var(--accent-color);
+        border-radius: 50%;
+        border: 3px solid var(--bg-primary);
+      }
+
+      .timeline-phase {
+        font-size: 0.875rem;
+        color: var(--accent-color);
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .timeline-description {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        margin: 0;
+      }
+
+      .testimonial {
+        background: var(--bg-secondary);
+        padding: 2rem;
+        border-radius: 12px;
+        margin: 2rem 0;
+        position: relative;
+      }
+
+      .testimonial::before {
+        content: '"';
+        position: absolute;
+        top: 1rem;
+        left: 1.5rem;
+        font-size: 3rem;
+        color: var(--accent-color);
+        font-family: Georgia, serif;
+        line-height: 1;
+      }
+
+      .testimonial-text {
+        font-style: italic;
+        color: var(--text-secondary);
+        font-size: 1rem;
+        line-height: 1.6;
+        margin: 0 0 1rem 0;
+        padding-left: 2rem;
+      }
+
+      .testimonial-author {
+        font-weight: 600;
+        color: var(--text-primary);
+        padding-left: 2rem;
+      }
+
+      .case-actions {
+        padding: 2rem;
+        border-top: 1px solid var(--border-color);
+        display: flex;
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+        color: white;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px var(--accent-color-alpha);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+      }
+
+      .btn-secondary:hover {
+        background: var(--accent-color-alpha);
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+      }
+
+      /* CSS Variables for theming */
+      :root {
+        --bg-primary: #fafbfc;
+        --bg-secondary: #f5f7fa;
+        --card-bg: rgba(255, 255, 255, 0.8);
+        --text-primary: #1a202c;
+        --text-secondary: #4a5568;
+        --border-color: rgba(226, 232, 240, 0.8);
+        --accent-color: #667eea;
+        --accent-secondary: #764ba2;
+        --accent-color-alpha: rgba(102, 126, 234, 0.15);
+      }
+
+      [data-theme="dark"] {
+        --bg-primary: #0f1419;
+        --bg-secondary: #1a202c;
+        --card-bg: rgba(45, 55, 72, 0.8);
+        --text-primary: #f7fafc;
+        --text-secondary: #a0aec0;
+        --border-color: rgba(74, 85, 104, 0.8);
+      }
+
+      /* Background system */
+      .bg-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        z-index: -3;
+      }
+
+      .accent-blob {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(60px);
+        opacity: 0.6;
+        z-index: -2;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .blob-1 {
+        width: 400px;
+        height: 400px;
+        background: linear-gradient(45deg, var(--accent-color), var(--accent-secondary));
+        top: -100px;
+        right: -100px;
+        animation-delay: 0s;
+      }
+
+      .blob-2 {
+        width: 300px;
+        height: 300px;
+        background: linear-gradient(-45deg, var(--accent-secondary), var(--accent-color));
+        bottom: -50px;
+        left: -50px;
+        animation-delay: 3s;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        33% { transform: translateY(-20px) rotate(5deg); }
+        66% { transform: translateY(10px) rotate(-3deg); }
+      }
+
+      /* Header styles */
+      .site-header {
+        position: sticky;
+        top: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border-color);
+        z-index: 100;
+        padding: 1rem 0;
+      }
+
+      [data-theme="dark"] .site-header {
+        background: rgba(15, 20, 25, 0.95);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .header-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .brand {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        text-decoration: none;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .nav-btn {
+        padding: 0.5rem 1rem;
+        color: var(--text-secondary);
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+      }
+
+      .nav-btn:hover, .nav-btn.active {
+        color: var(--text-primary);
+        background: var(--accent-color-alpha);
+      }
+
+      .theme-toggle {
+        background: none;
+        border: none;
+        font-size: 1.25rem;
+        padding: 0.5rem;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: background 0.2s ease;
+        margin-left: 0.5rem;
+      }
+
+      .theme-toggle:hover {
+        background: var(--accent-color-alpha);
+      }
+
+      /* Hero section */
+      .hero {
+        padding: 4rem 0 2rem 0;
+        text-align: center;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        background: var(--accent-color-alpha);
+        color: var(--accent-color);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        margin: 0 0 1rem 0;
+        line-height: 1.1;
+      }
+
+      .hero-subtitle {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+
+      .section {
+        padding: 2rem 0;
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .case-metrics {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+
+        .challenge-solution {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+
+        .case-actions {
+          flex-direction: column;
+        }
+
+        .nav-actions {
+          flex-wrap: wrap;
+          gap: 0.25rem;
+        }
+
+        .nav-btn {
+          padding: 0.375rem 0.75rem;
+          font-size: 0.875rem;
+        }
+
+        .hero h1 {
+          font-size: 2.25rem;
+        }
+
+        .hero-subtitle {
+          font-size: 1.125rem;
+        }
+
+        .container {
+          padding: 0 1rem;
+        }
+
+        .case-header, .case-content, .case-actions {
+          padding: 1.5rem;
+        }
+
+        .case-metrics {
+          margin: 0 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Professional background system -->
+    <div class="bg-canvas"></div>
+    <div class="accent-blob blob-1"></div>
+    <div class="accent-blob blob-2"></div>
+
+    <header class="site-header">
+      <div class="container">
+        <div class="header-content">
+          <a class="brand" href="index.html" aria-label="Amy Bray - Home">Amy Bray</a>
+          
+          <nav class="nav-actions">
+            <a class="nav-btn" href="index.html">Home</a>
+            <a class="nav-btn" href="projects.html">Projects</a>
+            <a class="nav-btn active" href="case-studies.html">Case Studies</a>
+            <a class="nav-btn" href="contact.html">Contact</a>
+            <button
+              id="theme-toggle"
+              class="theme-toggle"
+              aria-label="Toggle between light and dark themes"
+              title="Toggle theme"
+            >
+              🌙
+            </button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Page Header -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-badge">
+              <span class="badge-text">📈 Real Results</span>
+            </div>
+            <h1>Case Studies</h1>
+            <p class="hero-subtitle">
+              Real-world examples of how my HR technology solutions have transformed businesses, streamlined operations, and delivered measurable results for teams of all sizes.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Case Studies -->
+      <section class="section">
+        <div class="container">
+          <div class="case-studies-grid">
+            <!-- Case Study 1: Global Workforce Scaling -->
+            <article class="case-study-card">
+              <div class="case-header">
+                <div class="case-company">
+                  <div class="company-logo">GW</div>
+                  <div class="company-info">
+                    <h3>Global Workforce</h3>
+                    <p class="company-details">Workforce Platform • Global Scale • Technology</p>
+                  </div>
+                </div>
+                <h2 class="case-title">Scaling Global Contingent Workforce Operations from $1M to $60M</h2>
+                <p class="case-summary">
+                  Led the explosive growth of a global contingent workforce program, transforming operations from 100 workers in 2 countries to over 1,000 workers across 20+ countries while building scalable processes, compliance frameworks, and financial systems.
+                </p>
+              </div>
+
+              <div class="case-metrics">
+                <div class="metric">
+                  <span class="metric-value">6000%</span>
+                  <span class="metric-label">GSV Growth</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">1000+</span>
+                  <span class="metric-label">Workers Managed</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">20</span>
+                  <span class="metric-label">Countries</span>
+                </div>
+              </div>
+
+              <div class="case-content">
+                <div class="challenge-solution">
+                  <div class="challenge">
+                    <h4>🚨 The Challenge</h4>
+                    <p>Scale from 100 contingent workers ($1M GSV) in US/Canada to a global program supporting rapid business growth while maintaining compliance across multiple jurisdictions and payment systems.</p>
+                  </div>
+                  <div class="solution">
+                    <h4>✅ The Solution</h4>
+                    <p>Built comprehensive scaling framework including process optimization, cross-functional partnerships, compliance systems, and financial forecasting tools to enable 60x growth.</p>
+                  </div>
+                </div>
+
+                <h3>Strategic Approach</h3>
+                <div class="implementation-timeline">
+                  <div class="timeline">
+                    <div class="timeline-item">
+                      <div class="timeline-phase">Phase 1: Process Foundation</div>
+                      <p class="timeline-description">Optimized core processes, documented workflows, and established scalable operational procedures</p>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-phase">Phase 2: Global Expansion</div>
+                      <p class="timeline-description">Partnered with Employer of Record vendors, built compliance frameworks for 20+ countries</p>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-phase">Phase 3: System Integration</div>
+                      <p class="timeline-description">Collaborated with engineering to improve backend processes, onboarding speed, and payment systems</p>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-phase">Phase 4: Financial Systems</div>
+                      <p class="timeline-description">Created international payroll forecasting tracker and month-end accrual processes for Finance team</p>
+                    </div>
+                  </div>
+                </div>
+
+                <h3>Key Innovations</h3>
+                <ul style="margin-left: 1rem; color: var(--text-secondary); line-height: 1.6;">
+                  <li><strong>Scalable compliance framework:</strong> Enabled expansion to 20+ countries with zero compliance issues</li>
+                  <li><strong>Automated onboarding optimization:</strong> Reduced time-to-productivity for new contractors</li>
+                  <li><strong>Financial forecasting system:</strong> Created predictive models for international payroll planning</li>
+                  <li><strong>Cross-functional orchestration:</strong> Coordinated legal, finance, engineering, and vendor teams</li>
+                  <li><strong>Documentation and training:</strong> Built knowledge base enabling team scaling</li>
+                </ul>
+
+                <h3>Business Impact</h3>
+                <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0;">
+                  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                    <div>
+                      <h4 style="margin: 0 0 0.5rem 0; color: var(--text-primary);">Scale Achievements</h4>
+                      <ul style="margin: 0; padding-left: 1rem; color: var(--text-secondary); font-size: 0.875rem;">
+                        <li>US workforce: 100 → 800+ contractors</li>
+                        <li>International: 0 → 200+ across 20 countries</li>
+                        <li>GSV growth: $1M → $60M annually</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 style="margin: 0 0 0.5rem 0; color: var(--text-primary);">Operational Excellence</h4>
+                      <ul style="margin: 0; padding-left: 1rem; color: var(--text-secondary); font-size: 0.875rem;">
+                        <li>Zero compliance violations across all countries</li>
+                        <li>Streamlined vendor relationships and SLAs</li>
+                        <li>Improved financial visibility and forecasting</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="case-actions">
+                <a href="contact.html" class="btn btn-primary">
+                  Discuss Scaling Challenges
+                  <span>→</span>
+                </a>
+                <a href="contact.html" class="btn btn-secondary">
+                  View Process Framework
+                  <span>↗</span>
+                </a>
+              </div>
+            </article>
+
+            <!-- Case Study 2: AccuAI Implementation -->
+            <!-- Case Study 2: Bullhorn Implementation -->
+            <article class="case-study-card">
+              <div class="case-header">
+                <div class="case-company">
+                  <div class="company-logo">TE</div>
+                  <div class="company-info">
+                    <h3>Talent Engagement Solutions</h3>
+                    <p class="company-details">Talent Management • Implementation • Process Optimization</p>
+                  </div>
+                </div>
+                <h2 class="case-title">Streamlining Onboarding with Bullhorn Front & Back Office</h2>
+                <p class="case-summary">
+                  Coordinated comprehensive Bullhorn implementation to eliminate manual onboarding bottlenecks, becoming the Front Office system owner while collaborating with cross-functional teams to build automated workflows and field mappings.
+                </p>
+              </div>
+
+              <div class="case-metrics">
+                <div class="metric">
+                  <span class="metric-value">70%</span>
+                  <span class="metric-label">Faster Onboarding</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">95%</span>
+                  <span class="metric-label">Error Reduction</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">100%</span>
+                  <span class="metric-label">Self-Service</span>
+                </div>
+              </div>
+
+              <div class="case-content">
+                <div class="challenge-solution">
+                  <div class="challenge">
+                    <h4>🚨 The Challenge</h4>
+                    <p>Manual onboarding workflows were creating data errors, significant delays, and IT bottlenecks that prevented the Talent Engagement team from scaling efficiently.</p>
+                  </div>
+                  <div class="solution">
+                    <h4>✅ The Solution</h4>
+                    <p>Coordinated Bullhorn Front Office and Back Office implementation, designed custom field mappings, and built automated workflows to enable self-service and eliminate manual processes.</p>
+                  </div>
+                </div>
+
+                <h3>Implementation Approach</h3>
+                <div class="implementation-timeline">
+                  <div class="timeline">
+                    <div class="timeline-item">
+                      <div class="timeline-phase">Phase 1: Requirements Analysis</div>
+                      <p class="timeline-description">Worked with stakeholders to identify pain points and design system requirements</p>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-phase">Phase 2: System Configuration</div>
+                      <p class="timeline-description">Built field mappings and configured Bullhorn to match business workflows</p>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-phase">Phase 3: Automation Design</div>
+                      <p class="timeline-description">Created automated processes to eliminate manual data entry and reduce errors</p>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-phase">Phase 4: Team Enablement</div>
+                      <p class="timeline-description">Became Front Office owner, trained team, and established self-service capabilities</p>
+                    </div>
+                  </div>
+                </div>
+
+                <h3>Technical Implementation</h3>
+                <ul style="margin-left: 1rem; color: var(--text-secondary); line-height: 1.6;">
+                  <li><strong>Custom Field Mapping:</strong> Designed data structure to match business needs and existing workflows</li>
+                  <li><strong>Process Automation:</strong> Built workflows to eliminate manual data entry and reduce human error</li>
+                  <li><strong>System Integration:</strong> Connected Front Office and Back Office for seamless data flow</li>
+                  <li><strong>Self-Service Portal:</strong> Enabled Talent Engagement team to manage processes independently</li>
+                  <li><strong>Quality Controls:</strong> Implemented validation rules and error checking mechanisms</li>
+                </ul>
+
+                <h3>Cross-Functional Collaboration</h3>
+                <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0;">
+                  <h4 style="margin: 0 0 1rem 0; color: var(--text-primary);">Team Coordination</h4>
+                  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                    <div>
+                      <h5 style="margin: 0 0 0.5rem 0; color: var(--text-primary); font-size: 0.875rem;">Stakeholder Engagement</h5>
+                      <ul style="margin: 0; padding-left: 1rem; color: var(--text-secondary); font-size: 0.875rem;">
+                        <li>Coordinated with IT, HR, and Talent teams</li>
+                        <li>Gathered requirements from multiple departments</li>
+                        <li>Managed expectations during implementation</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h5 style="margin: 0 0 0.5rem 0; color: var(--text-primary); font-size: 0.875rem;">System Ownership</h5>
+                      <ul style="margin: 0; padding-left: 1rem; color: var(--text-secondary); font-size: 0.875rem;">
+                        <li>Became Front Office system owner</li>
+                        <li>Enabled team self-sufficiency</li>
+                        <li>Established ongoing optimization processes</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="case-actions">
+                <a href="contact.html" class="btn btn-primary">
+                  Discuss System Implementation
+                  <span>→</span>
+                </a>
+                <a href="contact.html" class="btn btn-secondary">
+                  Process Optimization
+                  <span>↗</span>
+                </a>
+              </div>
+            </article>
+
+            <!-- Case Study 3: AuniConnect Beta -->
+            <article class="case-study-card">
+              <div class="case-header">
+                <div class="case-company">
+                  <div class="company-logo">TE</div>
+                  <div class="company-info">
+                    <h3>Talent Engagement Process Improvement</h3>
+                    <p class="company-details">Staffing Agency • 75+ employees • High Growth</p>
+                  </div>
+                </div>
+                <h2 class="case-title">Streamlining Recruitment to Onboarding Pipeline</h2>
+                <p class="case-summary">
+                  As a fast-growing agency, the company was hiring 10-15 people per month. The manual process of moving candidate data from their ATS to HRIS was creating bottlenecks and errors in their onboarding process.
+                </p>
+              </div>
+
+              <div class="case-metrics">
+                <div class="metric">
+                  <span class="metric-value">45hrs</span>
+                  <span class="metric-label">Monthly Time Saved</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">3 days</span>
+                  <span class="metric-label">Faster Onboarding</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">100%</span>
+                  <span class="metric-label">Data Accuracy</span>
+                </div>
+              </div>
+
+              <div class="case-content">
+                <div class="challenge-solution">
+                  <div class="challenge">
+                    <h4>🚨 The Challenge</h4>
+                    <p>High-volume hiring meant 45+ hours monthly of manual data entry between Greenhouse and BambooHR. New hires were waiting days for system access and benefits enrollment.</p>
+                  </div>
+                  <div class="solution">
+                    <h4>✅ The Solution</h4>
+                    <p>Beta implementation of AuniConnect for automatic data sync, offer letter generation, and onboarding workflow triggers.</p>
+                  </div>
+                </div>
+
+                <h3>Results After 3 Months</h3>
+                <ul style="margin-left: 1rem; color: var(--text-secondary); line-height: 1.6;">
+                  <li><strong>Eliminated manual data entry:</strong> 100% of candidate data flows automatically</li>
+                  <li><strong>Faster onboarding:</strong> New hires get system access on day 1</li>
+                  <li><strong>Improved candidate experience:</strong> Offer letters generated in minutes, not hours</li>
+                  <li><strong>Better data quality:</strong> Zero errors in employee data transfer</li>
+                </ul>
+
+              </div>
+
+              <div class="case-actions">
+                <a href="project-auniconnect.html" class="btn btn-primary">
+                  View AuniConnect Project
+                  <span>→</span>
+                </a>
+                <a href="contact.html" class="btn btn-secondary">
+                  Request Beta Access
+                  <span>↗</span>
+                </a>
+              </div>
+            </article>
+
+            <!-- Case Study 4: Payroll System Integration -->
+            <article class="case-study-card">
+              <div class="case-header">
+                <div class="case-company">
+                  <div class="company-logo">PW</div>
+                  <div class="company-info">
+                    <h3>US Payroll Workforce Solutions</h3>
+                    <p class="company-details">Global HR Services • M&A Integration • Enterprise</p>
+                  </div>
+                </div>
+                <h2 class="case-title">Building US Payroll Operations Through Strategic Acquisition</h2>
+                <p class="case-summary">
+                  Led the complete setup and integration of the first US payroll department following a strategic acquisition, migrating 900+ employees across multiple systems while establishing scalable processes and documentation for future growth.
+                </p>
+              </div>
+
+              <div class="case-metrics">
+                <div class="metric">
+                  <span class="metric-value">900+</span>
+                  <span class="metric-label">Employees Migrated</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">4</span>
+                  <span class="metric-label">Systems Integrated</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">100%</span>
+                  <span class="metric-label">Migration Success</span>
+                </div>
+              </div>
+
+              <div class="case-content">
+                <div class="challenge-solution">
+                  <div class="challenge">
+                    <h4>🚨 The Challenge</h4>
+                    <p>Establish first US payroll department post-acquisition, integrating acquired company's processes with existing global systems while maintaining payroll operations for 900+ employees during transition.</p>
+                  </div>
+                  <div class="solution">
+                    <h4>✅ The Solution</h4>
+                    <p>Architected complete payroll infrastructure combining acquired processes with company systems, ensuring seamless migration and establishing foundation for future US market growth.</p>
+                  </div>
+                </div>
+
+                <h3>Integration Strategy</h3>
+                <div class="implementation-timeline">
+                  <div class="timeline">
+                    <div class="timeline-item">
+                      <div class="timeline-phase">Phase 1: Discovery & Planning</div>
+                      <p class="timeline-description">Analyzed acquired company processes, mapped to existing systems, designed integration architecture</p>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-phase">Phase 2: System Setup</div>
+                      <p class="timeline-description">Configured ADP, Great Plains, and eRecruit to match operational requirements and compliance standards</p>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-phase">Phase 3: Process Migration</div>
+                      <p class="timeline-description">Documented and merged workflows, created training materials, established new operational procedures</p>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-phase">Phase 4: Testing & Launch</div>
+                      <p class="timeline-description">Comprehensive system testing, employee migration, and successful go-live with 900+ employees</p>
+                    </div>
+                  </div>
+                </div>
+
+                <h3>Technical Implementation</h3>
+                <ul style="margin-left: 1rem; color: var(--text-secondary); line-height: 1.6;">
+                  <li><strong>ADP Workforce Now:</strong> Core payroll processing and employee self-service portal</li>
+                  <li><strong>Great Plains Integration:</strong> Financial reporting and GL integration for accurate accounting</li>
+                  <li><strong>eRecruit System:</strong> Candidate tracking and onboarding workflow automation</li>
+                  <li><strong>Process Documentation:</strong> Comprehensive procedures enabling team scaling and knowledge transfer</li>
+                  <li><strong>Compliance Framework:</strong> Ensured all US federal and state payroll regulations were met</li>
+                </ul>
+
+                <h3>M&A Integration Expertise</h3>
+                <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0;">
+                  <h4 style="margin: 0 0 1rem 0; color: var(--text-primary);">Key Success Factors</h4>
+                  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                    <div>
+                      <h5 style="margin: 0 0 0.5rem 0; color: var(--text-primary); font-size: 0.875rem;">Process Integration</h5>
+                      <ul style="margin: 0; padding-left: 1rem; color: var(--text-secondary); font-size: 0.875rem;">
+                        <li>Merged best practices from both organizations</li>
+                        <li>Maintained operational continuity during transition</li>
+                        <li>Created scalable foundation for future growth</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h5 style="margin: 0 0 0.5rem 0; color: var(--text-primary); font-size: 0.875rem;">System Architecture</h5>
+                      <ul style="margin: 0; padding-left: 1rem; color: var(--text-secondary); font-size: 0.875rem;">
+                        <li>Seamless integration across 4 critical systems</li>
+                        <li>Zero payroll disruption for 900+ employees</li>
+                        <li>Comprehensive testing and validation protocols</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="case-actions">
+                <a href="contact.html" class="btn btn-primary">
+                  Discuss M&A Integrations
+                  <span>→</span>
+                </a>
+                <a href="contact.html" class="btn btn-secondary">
+                  Payroll System Setup
+                  <span>↗</span>
+                </a>
+              </div>
+            </article>
+
+            <!-- Case Study 5: Custom Integration -->
+            <article class="case-study-card">
+              <div class="case-header">
+                <div class="case-company">
+                  <div class="company-logo">FS</div>
+                  <div class="company-info">
+                    <h3>Complect Payroll/VMS Automation</h3>
+                    <p class="company-details">Financial Services • 500+ employees • Enterprise</p>
+                  </div>
+                </div>
+                <h2 class="case-title">Custom Workflow Automation for Compliance</h2>
+                <p class="case-summary">
+                  A financial services company needed custom automation for their complex compliance workflows that involved multiple approvals and document management across different systems.
+                </p>
+              </div>
+
+              <div class="case-metrics">
+                <div class="metric">
+                  <span class="metric-value">80%</span>
+                  <span class="metric-label">Process Automation</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">60hrs</span>
+                  <span class="metric-label">Weekly Time Saved</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">100%</span>
+                  <span class="metric-label">Compliance Rate</span>
+                </div>
+              </div>
+
+              <div class="case-content">
+                <div class="challenge-solution">
+                  <div class="challenge">
+                    <h4>🚨 The Challenge</h4>
+                    <p>Complex compliance workflows required manual coordination between different systems, creating bottlenecks and compliance risks in a regulated industry.</p>
+                  </div>
+                  <div class="solution">
+                    <h4>✅ The Solution</h4>
+                    <p>Custom workflow automation platform with intelligent routing, automated approvals, and real-time compliance monitoring.</p>
+                  </div>
+                </div>
+
+                <h3>Key Improvements</h3>
+                <ul style="margin-left: 1rem; color: var(--text-secondary); line-height: 1.6;">
+                  <li><strong>Automated compliance workflows:</strong> 80% of processes now run automatically</li>
+                  <li><strong>Faster approvals:</strong> Reduced average approval time from 5 days to 8 hours</li>
+                  <li><strong>Better audit trails:</strong> Complete visibility into all process steps</li>
+                  <li><strong>Risk reduction:</strong> Eliminated manual compliance errors</li>
+                </ul>
+
+              </div>
+
+              <div class="case-actions">
+                <a href="contact.html" class="btn btn-primary">
+                  Discuss Custom Solutions
+                  <span>→</span>
+                </a>
+                <a href="contact.html" class="btn btn-secondary">
+                  Schedule Consultation
+                  <span>↗</span>
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // Theme toggle functionality
+      const themeToggle = document.getElementById('theme-toggle');
+      const html = document.documentElement;
+
+      // Check for saved theme preference or default to light mode
+      const currentTheme = localStorage.getItem('theme') || 'light';
+      html.setAttribute('data-theme', currentTheme);
+      themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+      themeToggle.addEventListener('click', () => {
+        const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+      });
+
+      // Smooth scrolling for internal links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VMSFlex Pay - Smart Payroll Calculator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .demo-instructions { background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px; margin-top: 15px; font-size: 0.9em; }
+        .tabs { display: flex; background: #f8f9fa; border-bottom: 2px solid #dee2e6; }
+        .tab { flex: 1; padding: 20px; text-align: center; cursor: pointer; background: #f8f9fa; border: none; font-size: 16px; font-weight: 600; color: #495057; transition: all 0.3s; }
+        .tab:hover { background: #e9ecef; }
+        .tab.active { background: white; color: #667eea; border-bottom: 3px solid #667eea; }
+        .tab-content { display: none; padding: 30px; }
+        .tab-content.active { display: block; }
+        .section { margin-bottom: 30px; }
+        .section h2 { color: #2d3748; margin-bottom: 20px; font-size: 1.5em; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #4a5568; font-weight: 600; }
+        input, select { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 16px; }
+        input:focus, select:focus { outline: none; border-color: #667eea; }
+        .btn { padding: 12px 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform 0.2s; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3); }
+        .btn-secondary { background: #718096; margin-left: 10px; }
+        .btn-success { background: #48bb78; margin-left: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background: #667eea; color: white; font-weight: 600; }
+        tr:hover { background: #f7fafc; }
+        .alert { padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        .alert-info { background: #bee3f8; color: #2c5282; border-left: 4px solid #4299e1; }
+        .alert-success { background: #c6f6d5; color: #22543d; border-left: 4px solid #48bb78; }
+        .alert-warning { background: #feebc8; color: #7c2d12; border-left: 4px solid #f6ad55; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
+        .stat-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; text-align: center; }
+        .stat-card h3 { font-size: 2em; margin-bottom: 5px; }
+        .file-upload { border: 3px dashed #cbd5e0; border-radius: 8px; padding: 40px; text-align: center; cursor: pointer; }
+        .file-upload:hover { border-color: #667eea; background: #f7fafc; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Smart Payroll Calculator</h1>
+            <p>Automate multi-VMS timesheet processing with CA compliance</p>
+            <div class="demo-instructions">
+                <strong>Demo:</strong> 1) Load Demo Data → 2) Import Timesheets → 3) Load Sample Data → 4) Calculate → 5) View Results
+            </div>
+        </header>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="setup">Setup</button>
+            <button class="tab" data-tab="import">Import</button>
+            <button class="tab" data-tab="calculate">Calculate</button>
+            <button class="tab" data-tab="results">Results</button>
+        </div>
+
+        <div id="setup" class="tab-content active">
+            <div class="section">
+                <h2>Add Employee</h2>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="empName" placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>ID</label>
+                    <input type="text" id="empId" placeholder="EMP001">
+                </div>
+                <div class="form-group">
+                    <label>Pay Rate ($/hour)</label>
+                    <input type="number" id="empRate" placeholder="25.00" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <select id="empLocation">
+                        <option value="federal">Federal</option>
+                        <option value="california">California</option>
+                        <option value="colorado">Colorado</option>
+                    </select>
+                </div>
+                <button class="btn" id="addEmpBtn">Add Employee</button>
+                <button class="btn btn-secondary" id="loadDemoBtn">Load Demo Data</button>
+            </div>
+
+            <div class="section">
+                <h2>Employee List</h2>
+                <table>
+                    <thead><tr><th>Name</th><th>ID</th><th>Rate</th><th>Location</th></tr></thead>
+                    <tbody id="employeeTableBody">
+                        <tr><td colspan="4" style="text-align:center;color:#a0aec0;">No employees</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="import" class="tab-content">
+            <div class="section">
+                <h2>Import Timesheets</h2>
+                <div class="alert alert-warning">
+                    <strong>CA Compliance:</strong> California employees MUST have daily hour breakdowns (one row per day).
+                </div>
+                <div class="file-upload" id="fileUploadArea">
+                    <input type="file" id="csvFile" accept=".csv" style="display: none;">
+                    <p style="font-size: 3em;">📁</p>
+                    <p>Click to upload CSV</p>
+                </div>
+                <button class="btn btn-success" id="sampleBtn" style="margin-top:20px;">Load Sample Data</button>
+            </div>
+            <div id="importPreview" style="display: none;">
+                <p><strong>Records:</strong> <span id="recordCount">0</span></p>
+                <button class="btn" id="confirmImportBtn">Confirm Import</button>
+            </div>
+        </div>
+
+        <div id="calculate" class="tab-content">
+            <div class="section">
+                <h2>Calculate Payroll</h2>
+                <div class="form-group">
+                    <label>Pay Period Start</label>
+                    <input type="date" id="periodStart">
+                </div>
+                <div class="form-group">
+                    <label>Pay Period End</label>
+                    <input type="date" id="periodEnd">
+                </div>
+                <button class="btn" id="calcBtn">Calculate Payroll</button>
+            </div>
+            <div id="calculationStatus" style="display: none;">
+                <div class="alert alert-success">Payroll calculated!</div>
+            </div>
+        </div>
+
+        <div id="results" class="tab-content">
+            <div class="section">
+                <h2>Payroll Results</h2>
+                <div class="stats">
+                    <div class="stat-card"><h3 id="totalEmployees">0</h3><p>Employees</p></div>
+                    <div class="stat-card"><h3 id="totalRegular">$0</h3><p>Regular Pay</p></div>
+                    <div class="stat-card"><h3 id="totalOvertime">$0</h3><p>OT/DT Pay</p></div>
+                    <div class="stat-card"><h3 id="totalPay">$0</h3><p>Total Gross Pay</p></div>
+                </div>
+                <button class="btn btn-success" id="exportBtn" style="margin:20px 0;">Export CSV</button>
+                <table id="resultsTable">
+                    <thead><tr><th>Employee</th><th>Reg Hrs</th><th>OT Hrs</th><th>DT Hrs</th><th>Reg Pay</th><th>OT Pay</th><th>DT Pay</th><th>Total</th></tr></thead>
+                    <tbody id="resultsTableBody">
+                        <tr><td colspan="8" style="text-align:center;color:#a0aec0;">No calculations yet</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let employees = [];
+        let timeEntries = [];
+        let payrollResults = [];
+
+        const rules = {
+            federal: { name: 'Federal', weeklyOT: 40, dailyOT: null },
+            california: { name: 'California', weeklyOT: 40, dailyOT: 8, dailyDT: 12, seventhDay: true },
+            colorado: { name: 'Colorado', weeklyOT: 40, dailyOT: 12 }
+        };
+
+        document.querySelector('.tabs').addEventListener('click', e => {
+            if (e.target.classList.contains('tab')) {
+                const tab = e.target.dataset.tab;
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                e.target.classList.add('active');
+                document.getElementById(tab).classList.add('active');
+            }
+        });
+
+        document.getElementById('addEmpBtn').addEventListener('click', () => {
+            const name = document.getElementById('empName').value;
+            const id = document.getElementById('empId').value;
+            const rate = parseFloat(document.getElementById('empRate').value);
+            const location = document.getElementById('empLocation').value;
+            if (!name || !id || !rate) return alert('Fill all fields');
+            employees.push({ name, id, rate, location });
+            updateEmployeeTable();
+            document.getElementById('empName').value = '';
+            document.getElementById('empId').value = '';
+            document.getElementById('empRate').value = '';
+        });
+
+        document.getElementById('loadDemoBtn').addEventListener('click', () => {
+            employees = [
+                { name: 'Alice Johnson', id: 'EMP001', rate: 25, location: 'california' },
+                { name: 'Bob Smith', id: 'EMP002', rate: 30, location: 'federal' },
+                { name: 'Carol Martinez', id: 'EMP003', rate: 28.5, location: 'colorado' }
+            ];
+            updateEmployeeTable();
+            alert('Demo employees loaded!');
+        });
+
+        function updateEmployeeTable() {
+            const tbody = document.getElementById('employeeTableBody');
+            if (employees.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#a0aec0;">No employees</td></tr>';
+                return;
+            }
+            tbody.innerHTML = employees.map(e => `<tr><td>${e.name}</td><td>${e.id}</td><td>$${e.rate.toFixed(2)}</td><td>${rules[e.location].name}</td></tr>`).join('');
+        }
+
+        document.getElementById('sampleBtn').addEventListener('click', () => {
+            if (employees.length === 0) return alert('Add employees first');
+            timeEntries = [];
+            for (let day = 0; day < 14; day++) {
+                const date = new Date();
+                date.setDate(date.getDate() - day);
+                employees.forEach(emp => {
+                    timeEntries.push({
+                        employeeId: emp.id,
+                        date: date.toISOString().split('T')[0],
+                        hours: parseFloat((7 + Math.random() * 5).toFixed(2))
+                    });
+                });
+            }
+            document.getElementById('importPreview').style.display = 'block';
+            document.getElementById('recordCount').textContent = timeEntries.length;
+            alert(`Generated ${timeEntries.length} entries!`);
+        });
+
+        document.getElementById('confirmImportBtn').addEventListener('click', () => {
+            document.querySelector('.tab[data-tab="calculate"]').click();
+        });
+
+        document.getElementById('calcBtn').addEventListener('click', () => {
+            if (employees.length === 0) return alert('Add employees first');
+            if (timeEntries.length === 0) return alert('Import timesheets first');
+            
+            payrollResults = [];
+            employees.forEach(emp => {
+                const entries = timeEntries.filter(e => e.employeeId === emp.id);
+                if (entries.length === 0) return;
+                
+                const rule = rules[emp.location];
+                let regHrs = 0, otHrs = 0, dtHrs = 0;
+                let consecutive = 0, lastDate = null;
+                
+                entries.sort((a, b) => new Date(a.date) - new Date(b.date)).forEach(day => {
+                    const curr = new Date(day.date);
+                    consecutive = lastDate && (curr - lastDate) / 86400000 === 1 ? consecutive + 1 : 1;
+                    lastDate = curr;
+                    
+                    const hrs = day.hours;
+                    if (rule.dailyOT) {
+                        if (rule.seventhDay && consecutive >= 7) {
+                            otHrs += hrs <= 8 ? hrs : 8;
+                            dtHrs += hrs > 8 ? hrs - 8 : 0;
+                        } else if (hrs <= rule.dailyOT) {
+                            regHrs += hrs;
+                        } else if (rule.dailyDT && hrs > rule.dailyDT) {
+                            regHrs += rule.dailyOT;
+                            otHrs += rule.dailyDT - rule.dailyOT;
+                            dtHrs += hrs - rule.dailyDT;
+                        } else {
+                            regHrs += rule.dailyOT;
+                            otHrs += hrs - rule.dailyOT;
+                        }
+                    } else {
+                        regHrs += hrs;
+                    }
+                });
+                
+                const total = regHrs + otHrs + dtHrs;
+                if (rule.weeklyOT && total > rule.weeklyOT) {
+                    const extra = total - rule.weeklyOT;
+                    const currentOT = otHrs + dtHrs;
+                    if (extra > currentOT) {
+                        otHrs += extra - currentOT;
+                        regHrs -= extra - currentOT;
+                    }
+                }
+                
+                const regPay = regHrs * emp.rate;
+                const otPay = otHrs * emp.rate * 1.5;
+                const dtPay = dtHrs * emp.rate * 2;
+                
+                payrollResults.push({
+                    employee: emp.name,
+                    regularHours: regHrs,
+                    overtimeHours: otHrs,
+                    doubleTimeHours: dtHrs,
+                    regularPay: regPay,
+                    overtimePay: otPay,
+                    doubleTimePay: dtPay,
+                    totalPay: regPay + otPay + dtPay
+                });
+            });
+            
+            displayResults();
+            document.getElementById('calculationStatus').style.display = 'block';
+            setTimeout(() => document.querySelector('.tab[data-tab="results"]').click(), 1000);
+        });
+
+        function displayResults() {
+            const tbody = document.getElementById('resultsTableBody');
+            tbody.innerHTML = payrollResults.map(r => `
+                <tr>
+                    <td>${r.employee}</td>
+                    <td>${r.regularHours.toFixed(2)}</td>
+                    <td>${r.overtimeHours.toFixed(2)}</td>
+                    <td>${r.doubleTimeHours.toFixed(2)}</td>
+                    <td>$${r.regularPay.toFixed(2)}</td>
+                    <td>$${r.overtimePay.toFixed(2)}</td>
+                    <td>$${r.doubleTimePay.toFixed(2)}</td>
+                    <td><strong>$${r.totalPay.toFixed(2)}</strong></td>
+                </tr>
+            `).join('');
+            
+            document.getElementById('totalEmployees').textContent = payrollResults.length;
+            const totalReg = payrollResults.reduce((s, r) => s + r.regularPay, 0);
+            const totalOT = payrollResults.reduce((s, r) => s + r.overtimePay + r.doubleTimePay, 0);
+            const total = payrollResults.reduce((s, r) => s + r.totalPay, 0);
+            document.getElementById('totalRegular').textContent = `$${totalReg.toFixed(2)}`;
+            document.getElementById('totalOvertime').textContent = `$${totalOT.toFixed(2)}`;
+            document.getElementById('totalPay').textContent = `$${total.toFixed(2)}`;
+        }
+
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            if (payrollResults.length === 0) return alert('No results to export');
+            let csv = 'Employee,Reg Hrs,OT Hrs,DT Hrs,Reg Pay,OT Pay,DT Pay,Total\n';
+            payrollResults.forEach(r => {
+                csv += `${r.employee},${r.regularHours.toFixed(2)},${r.overtimeHours.toFixed(2)},${r.doubleTimeHours.toFixed(2)},${r.regularPay.toFixed(2)},${r.overtimePay.toFixed(2)},${r.doubleTimePay.toFixed(2)},${r.totalPay.toFixed(2)}\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'payroll_results.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        const today = new Date();
+        const twoWeeksAgo = new Date(today);
+        twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+        document.getElementById('periodStart').valueAsDate = twoWeeksAgo;
+        document.getElementById('periodEnd').valueAsDate = today;
+    </script>
+</body>
+</html>

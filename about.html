@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Amy Bray</title>
+    <meta name="description" content="Learn about Amy Bray's background in HR technology, AI solutions, and global workforce programs.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Professional Design System - Same as other pages */
+        :root {
+            --radius: 16px;
+            --radius-large: 24px;
+            --gap: 24px;
+            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 12px 40px rgba(0, 0, 0, 0.12);
+            --shadow-large: 0 20px 60px rgba(0, 0, 0, 0.15);
+            
+            /* Professional Light Theme */
+            --bg-primary: #fafbff;
+            --bg-secondary: #f8fafc;
+            --surface: #ffffff;
+            --surface-elevated: #ffffff;
+            --surface-hover: #f1f5f9;
+            --border: rgba(15, 23, 42, 0.08);
+            --border-hover: rgba(15, 23, 42, 0.16);
+            --border-strong: rgba(15, 23, 42, 0.24);
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-tertiary: #64748b;
+            --text-inverse: #ffffff;
+            
+            --accent-primary: #4f46e5;
+            --accent-secondary: #06b6d4;
+            --accent-tertiary: #8b5cf6;
+            --accent-gradient: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+            --accent-gradient-alt: linear-gradient(135deg, #8b5cf6 0%, #4f46e5 100%);
+            
+            --success: #10b981;
+            --success-bg: #d1fae5;
+            --warning: #f59e0b;
+            --warning-bg: #fef3c7;
+            --error: #ef4444;
+            --error-bg: #fee2e2;
+        }
+
+        /* Dark Theme */
+        :root[data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --surface: #1e293b;
+            --surface-elevated: #334155;
+            --surface-hover: #475569;
+            --border: rgba(255, 255, 255, 0.1);
+            --border-hover: rgba(255, 255, 255, 0.2);
+            --border-strong: rgba(255, 255, 255, 0.3);
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-tertiary: #94a3b8;
+            --text-inverse: #0f172a;
+            
+            --accent-primary: #6366f1;
+            --accent-secondary: #22d3ee;
+            --accent-tertiary: #a855f7;
+            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #22d3ee 100%);
+            --accent-gradient-alt: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+            
+            --success: #34d399;
+            --success-bg: rgba(52, 211, 153, 0.1);
+            --warning: #fbbf24;
+            --warning-bg: rgba(251, 191, 36, 0.1);
+            --error: #f87171;
+            --error-bg: rgba(248, 113, 113, 0.1);
+        }
+
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+        }
+
+        h1 { 
+            font-size: clamp(2rem, 4vw, 3.5rem); 
+            font-weight: 700; 
+            line-height: 1.1;
+        }
+        h2 { 
+            font-size: clamp(1.5rem, 3vw, 2.25rem); 
+            line-height: 1.2;
+        }
+        h3 { 
+            font-size: 1.25rem; 
+            line-height: 1.3;
+        }
+
+        p {
+            margin: 0;
+            color: var(--text-secondary);
+        }
+
+        a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--accent-secondary);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 80px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Background System */
+        body {
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.4;
+            background-image: 
+                radial-gradient(circle at 1px 1px, var(--border) 1px, transparent 0);
+            background-size: 24px 24px;
+            mix-blend-mode: multiply;
+        }
+
+        :root[data-theme="dark"] body::before {
+            mix-blend-mode: overlay;
+            opacity: 0.2;
+        }
+
+        .bg-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: var(--bg-primary);
+        }
+
+        :root[data-theme="light"] .bg-canvas {
+            background: 
+                radial-gradient(800px circle at 85% 15%, rgba(79, 70, 229, 0.08) 0%, transparent 50%),
+                radial-gradient(600px circle at 15% 85%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+                linear-gradient(135deg, #fafbff 0%, #f1f5f9 50%, #e2e8f0 100%);
+        }
+
+        :root[data-theme="dark"] .bg-canvas {
+            background: 
+                radial-gradient(800px circle at 85% 15%, rgba(99, 102, 241, 0.12) 0%, transparent 50%),
+                radial-gradient(600px circle at 15% 85%, rgba(34, 211, 238, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        }
+
+        .accent-blob {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: floatGentle 20s ease-in-out infinite;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-gradient);
+            top: -200px;
+            right: -200px;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-gradient-alt);
+            bottom: -150px;
+            left: -150px;
+            animation-delay: 10s;
+        }
+
+        @keyframes floatGentle {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+            33% { transform: translate(30px, -20px) scale(1.1); opacity: 0.6; }
+            66% { transform: translate(-20px, 30px) scale(0.9); opacity: 0.5; }
+        }
+
+        /* Header */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        :root[data-theme="dark"] .site-header {
+            background: rgba(30, 41, 59, 0.95);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .nav-btn:hover {
+            color: var(--text-primary);
+            background: var(--surface);
+            border-color: var(--border);
+            transform: translateY(-1px);
+        }
+
+        .nav-btn.active {
+            color: var(--accent-primary);
+            background: var(--surface);
+            border-color: var(--border);
+            font-weight: 600;
+        }
+
+        .theme-toggle {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.2s ease;
+            margin-left: 8px;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0 120px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+
+        .badge-text {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .hero h1 {
+            margin-bottom: 24px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* About Content Styles */
+        .about-grid {
+            display: grid;
+            gap: 60px;
+            grid-template-columns: 1fr 1fr;
+            align-items: start;
+        }
+
+        .about-text {
+            font-size: 1.125rem;
+            line-height: 1.7;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .skills-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+        }
+
+        .skills-grid {
+            display: grid;
+            gap: 32px;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .skill-category h4 {
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .skill-item {
+            padding: 8px 12px;
+            background: var(--surface-hover);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .skill-item:hover {
+            background: var(--accent-gradient);
+            color: var(--text-inverse);
+            border-color: transparent;
+        }
+
+        .experience-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience-timeline::before {
+            content: "";
+            position: absolute;
+            left: 0.5rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent-gradient);
+        }
+
+        .experience-item {
+            position: relative;
+            margin-bottom: 2rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-left: 1rem;
+        }
+
+        .experience-item::before {
+            content: "";
+            position: absolute;
+            left: -1.75rem;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            border: 2px solid var(--surface);
+        }
+
+        .experience-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .experience-title {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .experience-date {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+        }
+
+        .experience-company {
+            color: var(--accent-primary);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .principles-grid {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .principle {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .principle:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--border-hover);
+        }
+
+        .principle h4 {
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .principle p {
+            color: var(--text-tertiary);
+            font-size: 0.95rem;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid transparent;
+        }
+
+        .cta-button.primary {
+            background: var(--accent-gradient);
+            color: var(--text-inverse);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .cta-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 48px rgba(79, 70, 229, 0.3);
+            color: var(--text-inverse);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-top: 16px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 60px 0 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-text {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+                padding: 20px 0;
+            }
+
+            .nav-actions {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 60px 0 80px;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .experience-timeline {
+                padding-left: 0;
+            }
+
+            .experience-timeline::before {
+                display: none;
+            }
+
+            .experience-item {
+                margin-left: 0;
+            }
+
+            .experience-item::before {
+                display: none;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            .accent-blob {
+                animation: none;
+            }
+        }
+
+        .nav-btn:focus-visible,
+        .theme-toggle:focus-visible,
+        .cta-button:focus-visible {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Professional background system -->
+    <div class="bg-canvas" aria-hidden="true"></div>
+    <div class="accent-blob blob-1" aria-hidden="true"></div>
+    <div class="accent-blob blob-2" aria-hidden="true"></div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <a class="brand" href="index.html">Amy Bray</a>
+                
+                <nav class="nav-actions">
+                    <a class="nav-btn" href="index.html">Home</a>
+                    <a class="nav-btn" href="projects.html">Projects</a>
+                    <a class="nav-btn active" href="about.html">About</a>
+                    <a class="nav-btn" href="contact.html">Contact</a>
+                    <button
+                        id="theme-toggle"
+                        class="theme-toggle"
+                        aria-label="Toggle between light and dark themes"
+                        title="Toggle theme"
+                    >
+                        🌙
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="badge-text">👋 Nice to meet you</span>
+                    </div>
+                    <h1>Building technology that works for people</h1>
+                    <p class="hero-subtitle">
+                        I'm Amy Bray, an HR technology specialist who believes the best systems are the ones that make work more human, not less. Every solution I build starts with understanding real user needs.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Content -->
+        <section class="section">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h2 style="color: var(--text-primary); margin-bottom: 24px;">My Story</h2>
+                        <p>My journey into HR technology started with a simple observation: most workplace systems feel like they were designed for robots, not humans. After years of watching talented people struggle with clunky interfaces and inefficient processes, I decided to do something about it.</p>
+                        
+                        <p>Today, I specialize in building HR technology solutions that actually solve real problems. Whether it's an AI assistant that handles routine questions, a data integration that eliminates manual entry, or analytics that reveal hidden insights, my focus is always on creating systems that make people's work lives better.</p>
+                        
+                        <p>I believe the best technology is invisible – it just works, seamlessly supporting people so they can focus on what matters most. That's the standard I hold myself to with every project.</p>
+                        
+                        <div style="margin-top: 32px;">
+                            <a href="contact.html" class="cta-button primary">
+                                <span>Let's Work Together</span>
+                                <span>→</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="skills-section">
+                        <h3 style="color: var(--text-primary); margin-bottom: 24px;">What I Bring</h3>
+                        <div class="skills-grid">
+                            <div class="skill-category">
+                                <h4>Technical Skills</h4>
+                                <div class="skills-list">
+                                    <span class="skill-item">Python & Flask Development</span>
+                                    <span class="skill-item">JavaScript & React</span>
+                                    <span class="skill-item">SQL & Data Analysis</span>
+                                    <span class="skill-item">AI/ML Integration</span>
+                                    <span class="skill-item">API Design & Integration</span>
+                                    <span class="skill-item">Streamlit Applications</span>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-category">
+                                <h4>HR Expertise</h4>
+                                <div class="skills-list">
+                                    <span class="skill-item">HRIS Implementation</span>
+                                    <span class="skill-item">Payroll Systems</span>
+                                    <span class="skill-item">Global Compliance</span>
+                                    <span class="skill-item">Employee Engagement</span>
+                                    <span class="skill-item">Process Automation</span>
+                                    <span class="skill-item">Data Privacy & Security</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Timeline -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Professional Journey</h2>
+                    <p class="section-subtitle">Key experiences that shaped my approach to HR technology</p>
+                </div>
+
+                <div class="experience-timeline">
+                    <div class="experience-item">
+                        <div class="experience-meta">
+                            <span class="experience-title">HR Technology Specialist</span>
+                            <span class="experience-date">2023 - Present</span>
+                        </div>
+                        <div class="experience-company">Independent Consultant</div>
+                        <p>Developing custom HR technology solutions including AI-powered assistants, data integration platforms, and process automation tools. Focus on privacy-first design and user-centered implementations.</p>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-meta">
+                            <span class="experience-title">People Operations Lead</span>
+                            <span class="experience-date">2021 - 2023</span>
+                        </div>
+                        <div class="experience-company">Global Technology Company</div>
+                        <p>Led HRIS implementation and global payroll migration projects. Designed employee engagement platforms and automated compliance processes across multiple countries and currencies.</p>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-meta">
+                            <span class="experience-title">HR Systems Analyst</span>
+                            <span class="experience-date">2019 - 2021</span>
+                        </div>
+                        <div class="experience-company">Mid-Size Healthcare Organization</div>
+                        <p>Specialized in ATS/HRIS integrations and data analysis. Developed automated workflows that reduced manual processing time by 70% and improved data accuracy across systems.</p>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-meta">
+                            <span class="experience-title">People Ops Coordinator</span>
+                            <span class="experience-date">2017 - 2019</span>
+                        </div>
+                        <div class="experience-company">Growing Startup</div>
+                        <p>Built HR processes from the ground up as the company scaled from 50 to 300 employees. Implemented first HRIS system and created onboarding automation that became the foundation for future growth.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Philosophy / Principles -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>My Approach</h2>
+                    <p class="section-subtitle">The principles that guide every project I work on</p>
+                </div>
+
+                <div class="principles-grid">
+                    <div class="principle">
+                        <h4>
+                            <span>🎯</span>
+                            User-Centered Design
+                        </h4>
+                        <p>Every solution starts with understanding the real people who will use it. I spend time with users to understand their pain points, workflows, and goals before writing a single line of code.</p>
+                    </div>
+
+                    <div class="principle">
+                        <h4>
+                            <span>🔒</span>
+                            Privacy by Design
+                        </h4>
+                        <p>With sensitive HR data, privacy isn't an afterthought – it's built into every system from day one. I implement robust security measures while keeping user experience seamless.</p>
+                    </div>
+
+                    <div class="principle">
+                        <h4>
+                            <span>⚡</span>
+                            Performance First
+                        </h4>
+                        <p>People's time is valuable. I build systems that are fast, reliable, and scale efficiently. No one should wait for technology – technology should adapt to people's pace.</p>
+                    </div>
+
+                    <div class="principle">
+                        <h4>
+                            <span>🔄</span>
+                            Continuous Improvement
+                        </h4>
+                        <p>The best systems evolve with their users. I build in feedback loops and analytics to continuously optimize performance and user satisfaction over time.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="section" style="background: var(--surface); border-radius: var(--radius-large); margin: 40px 0;">
+            <div class="container">
+                <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+                    <h2 style="margin-bottom: 16px; color: var(--text-primary);">Ready to work together?</h2>
+                    <p style="margin-bottom: 32px; font-size: 1.1rem;">I'm always interested in challenging projects that make a real difference for people. Let's discuss how we can solve your HR technology challenges.</p>
+                    <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                        <a href="contact.html" style="display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; background: var(--accent-gradient); color: var(--text-inverse); border-radius: 12px; font-weight: 600; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease; box-shadow: var(--shadow-medium);">
+                            <span>Get In Touch</span>
+                            <span>→</span>
+                        </a>
+                        <a href="projects.html" style="display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; background: var(--surface); color: var(--text-primary); border: 1px solid var(--border); border-radius: 12px; font-weight: 600; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease;">
+                            <span>View My Work</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">© <span id="current-year"></span> Amy Bray. Crafted with precision and purpose.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        (function() {
+            'use strict';
+
+            // Theme Management
+            const root = document.documentElement;
+            const toggleButton = document.getElementById('theme-toggle');
+            
+            const getPreferredTheme = () => {
+                const stored = localStorage.getItem('amy-portfolio-theme');
+                if (stored && ['light', 'dark'].includes(stored)) {
+                    return stored;
+                }
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            };
+
+            const applyTheme = (theme) => {
+                root.setAttribute('data-theme', theme);
+                localStorage.setItem('amy-portfolio-theme', theme);
+                
+                if (toggleButton) {
+                    toggleButton.textContent = theme === 'dark' ? '☀️' : '🌙';
+                    toggleButton.setAttribute('aria-label', 
+                        theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'
+                    );
+                }
+            };
+
+            const toggleTheme = () => {
+                const currentTheme = root.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                applyTheme(newTheme);
+            };
+
+            // Initialize theme
+            applyTheme(getPreferredTheme());
+
+            // Bind events
+            if (toggleButton) {
+                toggleButton.addEventListener('click', toggleTheme);
+            }
+
+            // Update copyright year
+            const yearElement = document.getElementById('current-year');
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+
+            // Navigation active states
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.nav-btn');
+            
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                link.classList.remove('active');
+                
+                if (href === currentPage || 
+                    (href === 'about.html' && currentPage === 'about.html')) {
+                    link.classList.add('active');
+                }
+            });
+
+            // System theme change listener
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                if (!localStorage.getItem('amy-portfolio-theme')) {
+                    applyTheme(e.matches ? 'dark' : 'light');
+                }
+            });
+
+        })();
+    </script>
+</body>
+</html>
