@@ -28,6 +28,12 @@
         }
         header h1 { font-size: 2.5em; margin-bottom: 10px; }
         header p { opacity: 0.9; font-size: 1.1em; }
+        .demo-instructions {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
         .tabs {
             display: flex;
             background: #f8f9fa;
@@ -144,6 +150,11 @@
             color: #22543d;
             border-left: 4px solid #48bb78;
         }
+        .alert-warning {
+            background: #feebc8;
+            color: #7c2d12;
+            border-left: 4px solid #f6ad55;
+        }
         .card {
             background: white;
             padding: 20px;
@@ -153,7 +164,7 @@
         }
         .rules-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
         }
         .stats {
@@ -177,9 +188,9 @@
     <div class="container">
         <header>
             <h1>Smart Payroll Calculator</h1>
-            <p>Automate multi-VMS timesheet processing</p>
-            <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
-                <strong>Demo Instructions:</strong> 1) Click "Load Demo Data" → 2) Go to "Import Timesheets" tab → 3) Click "Load Sample Data" → 4) Go to "Calculate" tab → 5) Click "Calculate Payroll" → 6) View results in "Results" tab
+            <p>Automate multi-VMS timesheet processing with CA compliance</p>
+            <div class="demo-instructions">
+                <strong>Demo Instructions:</strong> 1) Click "Load Demo Data" → 2) Go to "Import Timesheets" tab → 3) Click "Load Sample Data" OR upload your own CSV → 4) Go to "Calculate" tab → 5) Click "Calculate Payroll" → 6) View results and click "View Days" for daily breakdown
             </div>
         </header>
 
@@ -189,12 +200,11 @@
             <button class="tab" data-tab="calculate">Calculate</button>
             <button class="tab" data-tab="results">Results</button>
         </div>
-
-        <div id="setup" class="tab-content active">
+		<div id="setup" class="tab-content active">
             <div class="section">
                 <h2>Overtime Rules</h2>
                 <div class="alert alert-info">
-                    <strong>DEMO SYSTEM:</strong> Rules are simplified for demonstration. In production, these would be fully configurable and editable for each jurisdiction.
+                    <strong>DEMO SYSTEM:</strong> Rules are simplified for demonstration. Production includes all 50 state overtime rules, meal break penalties, and a fully configurable rules engine.
                 </div>
                 <div class="rules-grid">
                     <div class="card">
@@ -210,9 +220,19 @@
                         <p><strong>7th Day:</strong> First 8 hours at 1.5x, then 2x</p>
                     </div>
                     <div class="card">
-                        <h3>New York</h3>
+                        <h3>Colorado</h3>
+                        <p><strong>Daily OT:</strong> &gt; 12 hours at 1.5x</p>
                         <p><strong>Weekly OT:</strong> &gt; 40 hours at 1.5x</p>
-                        <p><strong>Daily OT:</strong> None</p>
+                    </div>
+                    <div class="card">
+                        <h3>Nevada</h3>
+                        <p><strong>Daily OT:</strong> &gt; 8 hours at 1.5x</p>
+                        <p><strong>Weekly OT:</strong> &gt; 40 hours at 1.5x</p>
+                    </div>
+                    <div class="card">
+                        <h3>Alaska</h3>
+                        <p><strong>Daily OT:</strong> &gt; 8 hours at 1.5x</p>
+                        <p><strong>Weekly OT:</strong> &gt; 40 hours at 1.5x</p>
                     </div>
                 </div>
             </div>
@@ -236,7 +256,9 @@
                     <select id="empLocation">
                         <option value="federal">Federal Standard</option>
                         <option value="california">California</option>
-                        <option value="newyork">New York</option>
+                        <option value="colorado">Colorado</option>
+                        <option value="nevada">Nevada</option>
+                        <option value="alaska">Alaska</option>
                     </select>
                 </div>
                 <button class="btn" id="addEmpBtn">Add Employee</button>
@@ -272,25 +294,27 @@
                         <li><strong>Required columns:</strong> Employee ID, Date, Hours</li>
                         <li><strong>Date formats:</strong> MM/DD/YYYY, YYYY-MM-DD, M/D/YYYY</li>
                         <li><strong>Hour formats:</strong> 8.5, 8:30, 8h 30m</li>
-                        <li><strong>Column headers:</strong> Flexible matching (e.g., "Employee ID", "EmpID", "Worker ID" all work)</li>
-                        <li><strong>Optional:</strong> Pre-calculated Regular/OT/DT breakdown columns</li>
+                        <li><strong>Column headers:</strong> Flexible matching (e.g., "Employee ID", "EmpID", "Worker ID")</li>
+                        <li><strong>Optional:</strong> Pre-calculated Regular/OT/DT columns</li>
                     </ul>
                     <div style="background: #feebc8; border-left: 4px solid #f6ad55; padding: 10px; margin-top: 15px; border-radius: 4px;">
                         <strong style="color: #7c2d12;">⚠ California Compliance Requirement:</strong>
                         <p style="color: #7c2d12; margin: 5px 0 0 0;">California employees MUST have daily hour breakdowns (one row per day worked). Weekly aggregated totals will be rejected to ensure accurate daily OT, double-time, and 7th-day calculations per CA labor law.</p>
                     </div>
-                    <strong style="display: block; margin-top: 10px;">Demo Mode:</strong> Click "Load Sample Data" below to generate test timesheet data (requires employees to be added first).
                 </div>
+                
                 <div class="file-upload" id="fileUploadArea">
                     <input type="file" id="csvFile" accept=".csv" style="display: none;">
                     <p style="font-size: 3em;">📁</p>
                     <p style="font-size: 1.2em; color: #4a5568;">Click to upload your CSV file</p>
-                    <p style="font-size: 0.9em; color: #718096; margin-top: 5px;">Will auto-detect format and calculate OT based on daily hours</p>
+                    <p style="font-size: 0.9em; color: #718096; margin-top: 5px;">Auto-detects format and validates CA compliance</p>
                 </div>
+
                 <div style="margin-top: 20px;">
                     <button class="btn btn-success" id="sampleBtn">Load Sample Data</button>
                 </div>
             </div>
+
             <div id="importPreview" style="display: none;">
                 <h2>Preview</h2>
                 <p><strong>Records:</strong> <span id="recordCount">0</span></p>
@@ -316,7 +340,7 @@
             <div class="section">
                 <h2>Calculate Payroll</h2>
                 <div class="alert alert-info">
-                    Run calculations based on imported timesheets.
+                    Run calculations based on imported timesheets. Calculates <strong>Total Gross Pay</strong> (prior to tax withholdings).
                 </div>
                 <div class="form-group">
                     <label>Pay Period Start</label>
@@ -353,13 +377,15 @@
                     </div>
                     <div class="stat-card">
                         <h3 id="totalPay">$0</h3>
-                        <p>Total Payroll</p>
+                        <p>Total Gross Pay</p>
                     </div>
                 </div>
+
                 <div style="margin: 20px 0;">
                     <button class="btn btn-success" id="exportBtn">Export Summary CSV</button>
                     <button class="btn btn-success" id="exportDetailBtn">Export Detailed CSV</button>
                 </div>
+
                 <table id="resultsTable">
                     <thead>
                         <tr>
@@ -370,15 +396,34 @@
                             <th>Regular Pay</th>
                             <th>OT Pay</th>
                             <th>DT Pay</th>
-                            <th>Total Pay</th>
+                            <th>Total Gross Pay</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="resultsTableBody">
                         <tr>
-                            <td colspan="8" style="text-align: center; color: #a0aec0;">No calculations yet</td>
+                            <td colspan="9" style="text-align: center; color: #a0aec0;">No calculations yet</td>
                         </tr>
                     </tbody>
                 </table>
+
+                <div id="dailyBreakdown" style="display: none; margin-top: 30px; padding: 20px; background: #f7fafc; border-radius: 8px;">
+                    <h3 id="breakdownTitle">Daily Breakdown</h3>
+                    <table id="breakdownTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Day</th>
+                                <th>Hours</th>
+                                <th>Regular</th>
+                                <th>OT</th>
+                                <th>DT</th>
+                                <th>Daily Pay</th>
+                            </tr>
+                        </thead>
+                        <tbody id="breakdownTableBody"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -390,24 +435,17 @@
 
         const overtimeRules = {
             federal: { name: 'Federal', weeklyOT: 40, dailyOT: null },
-            california: { 
-                name: 'California', 
-                weeklyOT: 40, 
-                dailyOT: 8, 
-                dailyDT: 12,
-                seventhDay: true  // 7th consecutive workday rule
-            },
-            newyork: { name: 'New York', weeklyOT: 40, dailyOT: null }
+            california: { name: 'California', weeklyOT: 40, dailyOT: 8, dailyDT: 12, seventhDay: true },
+            colorado: { name: 'Colorado', weeklyOT: 40, dailyOT: 12, dailyDT: null },
+            nevada: { name: 'Nevada', weeklyOT: 40, dailyOT: 8, dailyDT: null },
+            alaska: { name: 'Alaska', weeklyOT: 40, dailyOT: 8, dailyDT: null }
         };
-
-        // Tab switching with event delegation
+		// Tab switching
         document.querySelector('.tabs').addEventListener('click', function(e) {
             if (e.target.classList.contains('tab')) {
                 const tabName = e.target.getAttribute('data-tab');
-                
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                
                 e.target.classList.add('active');
                 document.getElementById(tabName).classList.add('active');
             }
@@ -438,7 +476,7 @@
             employees = [
                 { name: 'Alice Johnson', id: 'EMP001', rate: 25.00, location: 'california' },
                 { name: 'Bob Smith', id: 'EMP002', rate: 30.00, location: 'federal' },
-                { name: 'Carol Martinez', id: 'EMP003', rate: 28.50, location: 'newyork' }
+                { name: 'Carol Martinez', id: 'EMP003', rate: 28.50, location: 'colorado' }
             ];
             updateEmployeeTable();
             alert('Demo employees loaded!');
@@ -479,23 +517,190 @@
                     timeEntries.push({
                         employeeId: emp.id,
                         date: date.toISOString().split('T')[0],
-                        hours: parseFloat(hours.toFixed(2))
+                        hours: parseFloat(hours.toFixed(2)),
+                        preCalculated: false
                     });
                 });
             }
             
-            document.getElementById('importPreview').style.display = 'block';
-            document.getElementById('recordCount').textContent = timeEntries.length;
+            displayImportPreview();
             alert(`Generated ${timeEntries.length} sample time entries!`);
         });
 
-        // Confirm import
+        // File upload area click
+        document.getElementById('fileUploadArea').addEventListener('click', function() {
+            document.getElementById('csvFile').click();
+        });
+
+        // File upload handling
+        document.getElementById('csvFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                parseCSV(event.target.result, file.name);
+            };
+            reader.readAsText(file);
+        });
+
+        function parseCSV(csvText, fileName) {
+            const lines = csvText.split('\n').filter(line => line.trim());
+            if (lines.length < 2) {
+                alert('CSV file appears to be empty');
+                return;
+            }
+
+            const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+            const colMap = {};
+            
+            headers.forEach((h, i) => {
+                if (h.includes('employee') && h.includes('id') || h === 'empid' || h === 'id') colMap.employeeId = i;
+                if (h.includes('date') || h.includes('day')) colMap.date = i;
+                if (h.includes('regular') && h.includes('hour')) colMap.regularHours = i;
+                if ((h.includes('overtime') || h.includes('ot')) && h.includes('hour')) colMap.overtimeHours = i;
+                if ((h.includes('double') || h.includes('dt')) && h.includes('hour')) colMap.doubleTimeHours = i;
+                if (h.includes('hour') && !colMap.regularHours && !colMap.overtimeHours) colMap.hours = i;
+            });
+
+            if (colMap.employeeId === undefined || colMap.date === undefined) {
+                alert('CSV must have Employee ID and Date columns');
+                return;
+            }
+
+            const hasPreCalculated = colMap.regularHours !== undefined && colMap.overtimeHours !== undefined;
+            const formatType = hasPreCalculated ? 'Pre-Calculated (Reg/OT/DT)' : 'Daily Total Hours';
+            
+            timeEntries = [];
+            const employeeLocationMap = new Map();
+            let errorCount = 0;
+
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',').map(v => v.trim());
+                
+                try {
+                    const empId = values[colMap.employeeId];
+                    const dateStr = values[colMap.date];
+                    
+                    if (!empId || !dateStr) continue;
+
+                    let date;
+                    const dateMatch = dateStr.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+                    if (dateMatch) {
+                        const month = dateMatch[1].padStart(2, '0');
+                        const day = dateMatch[2].padStart(2, '0');
+                        date = `${dateMatch[3]}-${month}-${day}`;
+                    } else {
+                        date = dateStr;
+                    }
+
+                    const employee = employees.find(e => e.id === empId);
+                    if (employee) {
+                        employeeLocationMap.set(empId, employee.location);
+                    }
+
+                    if (hasPreCalculated) {
+                        const regHours = parseFloat(values[colMap.regularHours] || 0);
+                        const otHours = parseFloat(values[colMap.overtimeHours] || 0);
+                        const dtHours = parseFloat(values[colMap.doubleTimeHours] || 0);
+
+                        timeEntries.push({
+                            employeeId: empId,
+                            date: date,
+                            hours: regHours + otHours + dtHours,
+                            regularHours: regHours,
+                            overtimeHours: otHours,
+                            doubleTimeHours: dtHours,
+                            preCalculated: true
+                        });
+                    } else {
+                        const hours = parseFloat(values[colMap.hours] || 0);
+                        
+                        if (hours > 0) {
+                            timeEntries.push({
+                                employeeId: empId,
+                                date: date,
+                                hours: hours,
+                                preCalculated: false
+                            });
+                        }
+                    }
+                } catch (err) {
+                    errorCount++;
+                }
+            }
+
+            if (timeEntries.length === 0) {
+                alert('No valid time entries found in CSV');
+                return;
+            }
+
+            // California compliance validation
+            const validationErrors = [];
+            const caEmployees = [];
+            
+            employeeLocationMap.forEach((location, empId) => {
+                if (location === 'california') {
+                    caEmployees.push(empId);
+                    const empEntries = timeEntries.filter(e => e.employeeId === empId);
+                    
+                    if (empEntries.length === 0) {
+                        validationErrors.push(`California employee ${empId}: No time entries found`);
+                    } else {
+                        const dates = empEntries.map(e => e.date);
+                        const uniqueDates = new Set(dates);
+                        
+                        if (dates.length !== uniqueDates.size) {
+                            validationErrors.push(`California employee ${empId}: Duplicate dates found - this suggests weekly aggregation instead of daily breakdown`);
+                        }
+                    }
+                }
+            });
+
+            if (caEmployees.length > 0 && validationErrors.length === 0) {
+                setTimeout(() => alert(`✓ California Compliance Check Passed\n\n${caEmployees.length} California employee(s) detected.\nAll have proper daily hour breakdowns for accurate OT/DT calculation.`), 100);
+            } else if (validationErrors.length > 0) {
+                const errorMsg = '⚠ CALIFORNIA COMPLIANCE ERROR\n\n' + 
+                    'California employees require DAILY hour breakdowns (one row per day worked).\n\n' +
+                    'Issues found:\n' + validationErrors.join('\n') + '\n\n' +
+                    'Please upload a CSV with daily records to ensure accurate overtime calculation per CA labor laws.';
+                
+                alert(errorMsg);
+                timeEntries = [];
+                return;
+            }
+
+            displayImportPreview();
+            alert(`Successfully imported ${timeEntries.length} time entries!\n\nFormat Detected: ${formatType}\nEmployees: ${new Set(timeEntries.map(e => e.employeeId)).size}\n${errorCount > 0 ? `Skipped ${errorCount} invalid rows` : ''}`);
+        }
+
+        function displayImportPreview() {
+            document.getElementById('importPreview').style.display = 'block';
+            document.getElementById('recordCount').textContent = timeEntries.length;
+            
+            const uniqueEmployees = new Set(timeEntries.map(e => e.employeeId));
+            document.getElementById('employeeCount').textContent = uniqueEmployees.size;
+            
+            const previewBody = document.getElementById('previewTableBody');
+            previewBody.innerHTML = timeEntries.slice(0, 50).map(entry => `
+                <tr>
+                    <td>${entry.employeeId}</td>
+                    <td>${entry.date}</td>
+                    <td>${entry.hours.toFixed(2)}</td>
+                    <td><span style="font-size: 11px; color: ${entry.preCalculated ? '#48bb78' : '#667eea'};">${entry.preCalculated ? 'Pre-Calc' : 'Daily Total'}</span></td>
+                </tr>
+            `).join('');
+            
+            if (timeEntries.length > 50) {
+                previewBody.innerHTML += `<tr><td colspan="4" style="text-align: center; color: #a0aec0;">... and ${timeEntries.length - 50} more records</td></tr>`;
+            }
+        }
+
         document.getElementById('confirmImportBtn').addEventListener('click', function() {
             alert('Import confirmed!');
             document.querySelector('.tab[data-tab="calculate"]').click();
         });
-
-        // Calculate payroll
+		// Calculate payroll
         document.getElementById('calcBtn').addEventListener('click', function() {
             if (employees.length === 0) {
                 alert('Please add employees first');
@@ -513,8 +718,6 @@
                 if (empEntries.length === 0) return;
 
                 const rules = overtimeRules[employee.location];
-                
-                // Check if VMS already calculated OT/DT
                 const hasPreCalculated = empEntries.some(e => e.preCalculated);
 
                 let regularHours = 0;
@@ -522,33 +725,19 @@
                 let doubleTimeHours = 0;
 
                 if (hasPreCalculated) {
-                    // VMS already broke it down - just sum it up
                     empEntries.forEach(entry => {
                         regularHours += entry.regularHours || 0;
                         overtimeHours += entry.overtimeHours || 0;
                         doubleTimeHours += entry.doubleTimeHours || 0;
                     });
                 } else {
-                    // We need to calculate based on daily hours
-                    // Sort entries by date to detect consecutive workdays
                     const sortedEntries = empEntries.sort((a, b) => new Date(a.date) - new Date(b.date));
-                    
-                    let weeklyHours = 0;
                     let consecutiveWorkDays = 0;
                     let lastDate = null;
-                    let currentWeekStart = null;
 
                     sortedEntries.forEach((day) => {
                         const currentDate = new Date(day.date);
-                        const dayOfWeek = currentDate.getDay(); // 0 = Sunday
                         
-                        // Reset weekly counter on Sunday
-                        if (dayOfWeek === 0) {
-                            weeklyHours = 0;
-                            currentWeekStart = currentDate;
-                        }
-
-                        // Check if consecutive workday
                         if (lastDate) {
                             const dayDiff = (currentDate - lastDate) / (1000 * 60 * 60 * 24);
                             if (dayDiff === 1) {
@@ -567,11 +756,7 @@
                         let dailyDT = 0;
 
                         if (rules.dailyOT) {
-                            // California-style daily calculation
-                            
-                            // Apply 7th consecutive workday rule first
                             if (rules.seventhDay && consecutiveWorkDays >= 7) {
-                                // All hours on 7th+ day: first 8 hrs = OT, over 8 = DT
                                 if (hours <= 8) {
                                     dailyOT = hours;
                                 } else {
@@ -579,30 +764,26 @@
                                     dailyDT = hours - 8;
                                 }
                             } else {
-                                // Standard daily rules: 0-8 reg, 8-12 OT, 12+ DT
                                 if (hours <= rules.dailyOT) {
                                     dailyReg = hours;
                                 } else if (rules.dailyDT && hours > rules.dailyDT) {
                                     dailyReg = rules.dailyOT;
-                                    dailyOT = rules.dailyDT - rules.dailyOT; // hours 8-12
-                                    dailyDT = hours - rules.dailyDT; // hours 12+
+                                    dailyOT = rules.dailyDT - rules.dailyOT;
+                                    dailyDT = hours - rules.dailyDT;
                                 } else {
                                     dailyReg = rules.dailyOT;
                                     dailyOT = hours - rules.dailyOT;
                                 }
                             }
                         } else {
-                            // Federal/NY - all hours are regular for now
                             dailyReg = hours;
                         }
 
                         regularHours += dailyReg;
                         overtimeHours += dailyOT;
                         doubleTimeHours += dailyDT;
-                        weeklyHours += hours;
                     });
 
-                    // Apply weekly OT rule (additional OT if over 40 hours/week)
                     if (rules.weeklyOT) {
                         const totalHours = empEntries.reduce((sum, e) => sum + e.hours, 0);
                         
@@ -610,7 +791,6 @@
                             const weeklyOTNeeded = totalHours - rules.weeklyOT;
                             const currentOTHours = overtimeHours + doubleTimeHours;
                             
-                            // Only add more OT if daily OT didn't already cover it
                             if (weeklyOTNeeded > currentOTHours) {
                                 const additionalOT = weeklyOTNeeded - currentOTHours;
                                 overtimeHours += additionalOT;
@@ -626,6 +806,7 @@
 
                 payrollResults.push({
                     employee: employee.name,
+                    employeeId: employee.id,
                     regularHours: Math.max(0, regularHours),
                     overtimeHours,
                     doubleTimeHours,
@@ -649,10 +830,11 @@
                     <td>${result.regularHours.toFixed(2)}</td>
                     <td>${result.overtimeHours.toFixed(2)}</td>
                     <td>${result.doubleTimeHours.toFixed(2)}</td>
-                    <td>${result.regularPay.toFixed(2)}</td>
-                    <td>${result.overtimePay.toFixed(2)}</td>
-                    <td>${result.doubleTimePay.toFixed(2)}</td>
-                    <td><strong>${result.totalPay.toFixed(2)}</strong></td>
+                    <td>$${result.regularPay.toFixed(2)}</td>
+                    <td>$${result.overtimePay.toFixed(2)}</td>
+                    <td>$${result.doubleTimePay.toFixed(2)}</td>
+                    <td><strong>$${result.totalPay.toFixed(2)}</strong></td>
+                    <td><button class="btn" style="padding: 8px 16px; font-size: 14px;" onclick="showDailyBreakdown('${result.employeeId}')">View Days</button></td>
                 </tr>
             `).join('');
 
@@ -661,12 +843,122 @@
             const totalOT = payrollResults.reduce((sum, r) => sum + r.overtimePay + r.doubleTimePay, 0);
             const grandTotal = payrollResults.reduce((sum, r) => sum + r.totalPay, 0);
 
-            document.getElementById('totalRegular').textContent = `${totalReg.toFixed(2)}`;
-            document.getElementById('totalOvertime').textContent = `${totalOT.toFixed(2)}`;
-            document.getElementById('totalPay').textContent = `${grandTotal.toFixed(2)}`;
+            document.getElementById('totalRegular').textContent = `$${totalReg.toFixed(2)}`;
+            document.getElementById('totalOvertime').textContent = `$${totalOT.toFixed(2)}`;
+            document.getElementById('totalPay').textContent = `$${grandTotal.toFixed(2)}`;
         }
 
-        // Export detailed results with daily breakdown
+        function showDailyBreakdown(employeeId) {
+            const employee = employees.find(emp => emp.id === employeeId);
+            const empEntries = timeEntries.filter(e => e.employeeId === employeeId);
+            
+            if (!employee || empEntries.length === 0) return;
+            
+            const rules = overtimeRules[employee.location];
+            const sortedEntries = empEntries.sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            document.getElementById('breakdownTitle').textContent = `Daily Breakdown: ${employee.name}`;
+            const tbody = document.getElementById('breakdownTableBody');
+            
+            let consecutiveWorkDays = 0;
+            let lastDate = null;
+            
+            tbody.innerHTML = sortedEntries.map(entry => {
+                const date = new Date(entry.date);
+                const dayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][date.getDay()];
+                
+                if (lastDate) {
+                    const dayDiff = (date - lastDate) / (1000 * 60 * 60 * 24);
+                    if (dayDiff === 1) {
+                        consecutiveWorkDays++;
+                    } else {
+                        consecutiveWorkDays = 1;
+                    }
+                } else {
+                    consecutiveWorkDays = 1;
+                }
+                lastDate = date;
+                
+                let dailyReg = 0;
+                let dailyOT = 0;
+                let dailyDT = 0;
+                let note = '';
+                
+                if (entry.preCalculated) {
+                    dailyReg = entry.regularHours || 0;
+                    dailyOT = entry.overtimeHours || 0;
+                    dailyDT = entry.doubleTimeHours || 0;
+                    note = 'Pre-calc';
+                } else if (rules.dailyOT) {
+                    const hours = entry.hours;
+                    
+                    if (rules.seventhDay && consecutiveWorkDays >= 7) {
+                        if (hours <= 8) {
+                            dailyOT = hours;
+                        } else {
+                            dailyOT = 8;
+                            dailyDT = hours - 8;
+                        }
+                        note = `7th day (${consecutiveWorkDays} consecutive)`;
+                    } else {
+                        if (hours <= rules.dailyOT) {
+                            dailyReg = hours;
+                        } else if (rules.dailyDT && hours > rules.dailyDT) {
+                            dailyReg = rules.dailyOT;
+                            dailyOT = rules.dailyDT - rules.dailyOT;
+                            dailyDT = hours - rules.dailyDT;
+                            note = 'Over 12 hrs';
+                        } else {
+                            dailyReg = rules.dailyOT;
+                            dailyOT = hours - rules.dailyOT;
+                            note = hours > rules.dailyOT ? `Over ${rules.dailyOT} hrs` : '';
+                        }
+                    }
+                } else {
+                    dailyReg = entry.hours;
+                }
+                
+                const dailyPay = (dailyReg * employee.rate) + (dailyOT * employee.rate * 1.5) + (dailyDT * employee.rate * 2);
+                
+                return `
+                    <tr>
+                        <td>${entry.date}</td>
+                        <td>${dayOfWeek}${note ? ` <span style="color: #d97706; font-size: 11px;">(${note})</span>` : ''}</td>
+                        <td>${entry.hours.toFixed(2)}</td>
+                        <td>${dailyReg.toFixed(2)}</td>
+                        <td>${dailyOT.toFixed(2)}</td>
+                        <td>${dailyDT.toFixed(2)}</td>
+                        <td>$${dailyPay.toFixed(2)}</td>
+                    </tr>
+                `;
+            }).join('');
+            
+            document.getElementById('dailyBreakdown').style.display = 'block';
+            document.getElementById('dailyBreakdown').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Export summary
+        document.getElementById('exportBtn').addEventListener('click', function() {
+            if (payrollResults.length === 0) {
+                alert('No results to export');
+                return;
+            }
+            
+            let csv = 'Employee,Regular Hours,OT Hours,DT Hours,Regular Pay,OT Pay,DT Pay,Total Gross Pay\n';
+            payrollResults.forEach(result => {
+                csv += `${result.employee},${result.regularHours.toFixed(2)},${result.overtimeHours.toFixed(2)},${result.doubleTimeHours.toFixed(2)},${result.regularPay.toFixed(2)},${result.overtimePay.toFixed(2)},${result.doubleTimePay.toFixed(2)},${result.totalPay.toFixed(2)}\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'payroll_summary.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        // Export detailed with daily breakdown
         document.getElementById('exportDetailBtn').addEventListener('click', function() {
             if (payrollResults.length === 0) {
                 alert('No results to export');
@@ -683,7 +975,7 @@
                 
                 const sortedEntries = empEntries.sort((a, b) => new Date(a.date) - new Date(b.date));
                 
-                sortedEntries.forEach((entry, index) => {
+                sortedEntries.forEach(entry => {
                     const rules = overtimeRules[employee.location];
                     const date = new Date(entry.date);
                     const dayOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][date.getDay()];
@@ -697,7 +989,6 @@
                         dailyOT = entry.overtimeHours || 0;
                         dailyDT = entry.doubleTimeHours || 0;
                     } else if (rules.dailyOT) {
-                        // Calculate daily breakdown for CA
                         const hours = entry.hours;
                         
                         if (hours <= rules.dailyOT) {
@@ -722,9 +1013,8 @@
                     csv += `${employee.name},${employee.id},${entry.date},${entry.hours.toFixed(2)},${dayOfWeek},${dailyReg.toFixed(2)},${dailyOT.toFixed(2)},${dailyDT.toFixed(2)},${dailyRegPay.toFixed(2)},${dailyOTPay.toFixed(2)},${dailyDTPay.toFixed(2)},${dailyTotal.toFixed(2)}\n`;
                 });
                 
-                // Add summary row for this employee
                 csv += `${employee.name} TOTAL,${employee.id},SUMMARY,${empEntries.reduce((s,e) => s + e.hours, 0).toFixed(2)},ALL,${result.regularHours.toFixed(2)},${result.overtimeHours.toFixed(2)},${result.doubleTimeHours.toFixed(2)},${result.regularPay.toFixed(2)},${result.overtimePay.toFixed(2)},${result.doubleTimePay.toFixed(2)},${result.totalPay.toFixed(2)}\n`;
-                csv += '\n'; // Blank line between employees
+                csv += '\n';
             });
 
             const blob = new Blob([csv], { type: 'text/csv' });
@@ -735,218 +1025,6 @@
             a.click();
             URL.revokeObjectURL(url);
         });
-
-        // Export summary results
-        document.getElementById('exportBtn').addEventListener('click', function() {
-            if (payrollResults.length === 0) {
-                alert('No results to export');
-                return;
-            }
-            
-            let csv = 'Employee,Regular Hours,OT Hours,DT Hours,Regular Pay,OT Pay,DT Pay,Total Pay\n';
-            payrollResults.forEach(result => {
-                csv += `${result.employee},${result.regularHours.toFixed(2)},${result.overtimeHours.toFixed(2)},${result.doubleTimeHours.toFixed(2)},${result.regularPay.toFixed(2)},${result.overtimePay.toFixed(2)},${result.doubleTimePay.toFixed(2)},${result.totalPay.toFixed(2)}\n`;
-            });
-
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'payroll_summary.csv';
-            a.click();
-            URL.revokeObjectURL(url);
-        });
-
-        // File upload handling
-        document.getElementById('csvFile').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const csvText = event.target.result;
-                parseCSV(csvText, file.name);
-            };
-            reader.readAsText(file);
-        });
-
-        function parseCSV(csvText, fileName) {
-            const lines = csvText.split('\n').filter(line => line.trim());
-            if (lines.length < 2) {
-                alert('CSV file appears to be empty');
-                return;
-            }
-
-            // Parse headers
-            const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
-            
-            // Detect columns
-            const colMap = {};
-            headers.forEach((h, i) => {
-                if (h.includes('employee') && h.includes('id') || h === 'empid' || h === 'id') {
-                    colMap.employeeId = i;
-                }
-                if (h.includes('date') || h.includes('day')) {
-                    colMap.date = i;
-                }
-                if (h.includes('regular') && h.includes('hour')) {
-                    colMap.regularHours = i;
-                }
-                if ((h.includes('overtime') || h.includes('ot')) && h.includes('hour')) {
-                    colMap.overtimeHours = i;
-                }
-                if ((h.includes('double') || h.includes('dt')) && h.includes('hour')) {
-                    colMap.doubleTimeHours = i;
-                }
-                if (h.includes('hour') && !colMap.regularHours && !colMap.overtimeHours) {
-                    colMap.hours = i;
-                }
-            });
-
-            if (colMap.employeeId === undefined || colMap.date === undefined) {
-                alert('CSV must have Employee ID and Date columns');
-                return;
-            }
-
-            // Determine format type
-            const hasPreCalculated = colMap.regularHours !== undefined && colMap.overtimeHours !== undefined;
-            const formatType = hasPreCalculated ? 'Pre-Calculated (Reg/OT/DT)' : 'Daily Total Hours';
-
-            // Parse data
-            timeEntries = [];
-            let errorCount = 0;
-            const employeeLocationMap = new Map();
-
-            for (let i = 1; i < lines.length; i++) {
-                const values = lines[i].split(',').map(v => v.trim());
-                
-                try {
-                    const empId = values[colMap.employeeId];
-                    const dateStr = values[colMap.date];
-                    
-                    if (!empId || !dateStr) continue;
-
-                    // Parse date
-                    let date;
-                    const dateMatch = dateStr.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
-                    if (dateMatch) {
-                        const month = dateMatch[1].padStart(2, '0');
-                        const day = dateMatch[2].padStart(2, '0');
-                        date = `${dateMatch[3]}-${month}-${day}`;
-                    } else {
-                        date = dateStr;
-                    }
-
-                    // Track employee location for validation
-                    const employee = employees.find(e => e.id === empId);
-                    if (employee) {
-                        employeeLocationMap.set(empId, employee.location);
-                    }
-
-                    if (hasPreCalculated) {
-                        // Format with pre-calculated breakdown
-                        const regHours = parseFloat(values[colMap.regularHours] || 0);
-                        const otHours = parseFloat(values[colMap.overtimeHours] || 0);
-                        const dtHours = parseFloat(values[colMap.doubleTimeHours] || 0);
-
-                        timeEntries.push({
-                            employeeId: empId,
-                            date: date,
-                            hours: regHours + otHours + dtHours,
-                            regularHours: regHours,
-                            overtimeHours: otHours,
-                            doubleTimeHours: dtHours,
-                            preCalculated: true
-                        });
-                    } else {
-                        // Format with daily total only
-                        const hours = parseFloat(values[colMap.hours] || 0);
-                        
-                        if (hours > 0) {
-                            timeEntries.push({
-                                employeeId: empId,
-                                date: date,
-                                hours: hours,
-                                preCalculated: false
-                            });
-                        }
-                    }
-                } catch (err) {
-                    errorCount++;
-                }
-            }
-
-            if (timeEntries.length === 0) {
-                alert('No valid time entries found in CSV');
-                return;
-            }
-
-            // VALIDATION: Check for California employees
-            const validationErrors = [];
-            const caEmployees = [];
-            
-            employeeLocationMap.forEach((location, empId) => {
-                if (location === 'california') {
-                    caEmployees.push(empId);
-                    const empEntries = timeEntries.filter(e => e.employeeId === empId);
-                    
-                    // Check if they have daily breakdown
-                    if (empEntries.length === 0) {
-                        validationErrors.push(`California employee ${empId}: No time entries found`);
-                    } else {
-                        // Check for weekly aggregations (multiple employees with same date or missing dates)
-                        const dates = empEntries.map(e => e.date);
-                        const uniqueDates = new Set(dates);
-                        
-                        if (dates.length !== uniqueDates.size) {
-                            validationErrors.push(`California employee ${empId}: Duplicate dates found - this suggests weekly aggregation instead of daily breakdown`);
-                        }
-                    }
-                }
-            });
-
-            // Show validation warnings for CA employees
-            if (caEmployees.length > 0 && validationErrors.length === 0) {
-                const caCount = caEmployees.length;
-                const message = `✓ California Compliance Check Passed\n\n${caCount} California employee(s) detected.\nAll have proper daily hour breakdowns for accurate OT/DT calculation.`;
-                
-                // Show as alert after successful import
-                setTimeout(() => alert(message), 100);
-            } else if (validationErrors.length > 0) {
-                const errorMsg = '⚠ CALIFORNIA COMPLIANCE ERROR\n\n' + 
-                    'California employees require DAILY hour breakdowns (one row per day worked).\n\n' +
-                    'Issues found:\n' + validationErrors.join('\n') + '\n\n' +
-                    'Please upload a CSV with daily records to ensure accurate overtime calculation per CA labor laws.';
-                
-                alert(errorMsg);
-                timeEntries = []; // Clear invalid data
-                return;
-            }
-
-            // Show results
-            document.getElementById('importPreview').style.display = 'block';
-            document.getElementById('recordCount').textContent = timeEntries.length;
-            
-            const uniqueEmployees = new Set(timeEntries.map(e => e.employeeId));
-            document.getElementById('employeeCount').textContent = uniqueEmployees.size;
-            
-            // Show preview table
-            const previewBody = document.getElementById('previewTableBody');
-            previewBody.innerHTML = timeEntries.slice(0, 50).map(entry => `
-                <tr>
-                    <td>${entry.employeeId}</td>
-                    <td>${entry.date}</td>
-                    <td>${entry.hours.toFixed(2)}</td>
-                    <td><span style="font-size: 11px; color: ${entry.preCalculated ? '#48bb78' : '#667eea'};">${entry.preCalculated ? 'Pre-Calc' : 'Daily Total'}</span></td>
-                </tr>
-            `).join('');
-            
-            if (timeEntries.length > 50) {
-                previewBody.innerHTML += `<tr><td colspan="4" style="text-align: center; color: #a0aec0;">... and ${timeEntries.length - 50} more records</td></tr>`;
-            }
-            
-            alert(`Successfully imported ${timeEntries.length} time entries!\n\nFormat Detected: ${formatType}\nEmployees: ${uniqueEmployees.size}\n${errorCount > 0 ? `Skipped ${errorCount} invalid rows` : ''}`);
-        }
 
         // Set default dates
         const today = new Date();
